@@ -8,8 +8,7 @@ public class Principal {
 
 		ArrayList<String> instruções = Arquivo.lerArquivo();
 		for (String s : instruções) {
-			System.out.println(Interpretador.translateAssembly(s));
-
+			Interpretador.translateAssembly(s);
 		}
 
 	}

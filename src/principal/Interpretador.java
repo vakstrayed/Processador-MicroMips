@@ -9,13 +9,13 @@ public class Interpretador {
 
 	}
 
-	public static String translateAssembly(String result) {
+	public static void translateAssembly(String instrucao) {
 
-		result = util.toBin(result.substring(2, result.length()));
+		instrucao = util.toBin(instrucao.substring(2, instrucao.length()));
 
 		// ---------- separação do opCode ---------//
 
-		String opCode = result.substring(0, 6);
+		String opCode = instrucao.substring(0, 6);
 
 		// ----------------------------------------//
 
@@ -33,11 +33,11 @@ public class Interpretador {
 			// MULTU NOR OR SLL SLLV SLT SRA SRAV SRL SRLV SUB SUBU
 			// SYSCALL XOR
 
-			fn = result.substring(26, 32);
-			rs = result.substring(6, 11);
-			rt = result.substring(11, 16);
-			rd = result.substring(16, 21);
-			sh = result.substring(21, 26);
+			fn = instrucao.substring(26, 32);
+			rs = instrucao.substring(6, 11);
+			rt = instrucao.substring(11, 16);
+			rd = instrucao.substring(16, 21);
+			sh = instrucao.substring(21, 26);
 
 			switch (fn) {
 
@@ -216,8 +216,8 @@ public class Interpretador {
 		case "000001":
 			// BLTZ
 
-			rs = result.substring(6, 11);
-			imm = result.substring(16, 32);
+			rs = instrucao.substring(6, 11);
+			imm =instrucao.substring(16, 32);
 
 			System.out.println("\nInstrução BLTZ:");
 			System.out.println("Bltz " + "$" + util.toDecimalString(rs) + "," + util.twoComplment(imm));
@@ -226,7 +226,7 @@ public class Interpretador {
 		case "000010":
 			// J
 
-			imm = result.substring(6, 32);
+			imm = instrucao.substring(6, 32);
 
 			System.out.println("\nInstrução J:");
 			System.out.println("J " + "$" + util.toDecimalString(imm));
@@ -236,7 +236,7 @@ public class Interpretador {
 
 			// JAL
 
-			imm = result.substring(6, 32);
+			imm = instrucao.substring(6, 32);
 
 			System.out.println("\nInstrução JAL:");
 			System.out.println("Jal " + "$" + util.toDecimalString(imm));
@@ -246,9 +246,9 @@ public class Interpretador {
 
 			// BEQ
 
-			rs = result.substring(6, 11);
-			rt = result.substring(11, 16);
-			imm = result.substring(16, 32);
+			rs = instrucao.substring(6, 11);
+			rt = instrucao.substring(11, 16);
+			imm = instrucao.substring(16, 32);
 
 			System.out.println("\nInstrução BEQ:");
 			System.out.println("Beq " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt) + ","
@@ -259,9 +259,9 @@ public class Interpretador {
 
 			// BNE
 
-			rs = result.substring(6, 11);
-			rt = result.substring(11, 16);
-			imm = result.substring(16, 32);
+			rs = instrucao.substring(6, 11);
+			rt = instrucao.substring(11, 16);
+			imm = instrucao.substring(16, 32);
 
 			System.out.println("\nInstrução BNE:");
 			System.out.println("Bne " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt) + ","
@@ -271,9 +271,9 @@ public class Interpretador {
 		case "001000":
 
 			// ADDI
-			rs = result.substring(6, 11);
-			rt = result.substring(11, 16);
-			imm = result.substring(16, 32);
+			rs = instrucao.substring(6, 11);
+			rt = instrucao.substring(11, 16);
+			imm = instrucao.substring(16, 32);
 
 			System.out.println("\nInstrução ADDI:");
 			System.out.println("Addi " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
@@ -284,9 +284,9 @@ public class Interpretador {
 		case "001001":
 
 			// ADDIU
-			rs = result.substring(6, 11);
-			rt = result.substring(11, 16);
-			imm = result.substring(16, 32);
+			rs = instrucao.substring(6, 11);
+			rt = instrucao.substring(11, 16);
+			imm = instrucao.substring(16, 32);
 
 			System.out.println("\nInstrução ADDIU:");
 			System.out.println("Addiu " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
@@ -298,9 +298,9 @@ public class Interpretador {
 
 			// SLTI
 
-			rs = result.substring(6, 11);
-			rt = result.substring(11, 16);
-			imm = result.substring(16, 32);
+			rs = instrucao.substring(6, 11);
+			rt = instrucao.substring(11, 16);
+			imm = instrucao.substring(16, 32);
 
 			System.out.println("\nInstrução SLTI:");
 			System.out.println("Slti " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
@@ -311,9 +311,9 @@ public class Interpretador {
 		case "001100":
 
 			// ANDI
-			rs = result.substring(6, 11);
-			rt = result.substring(11, 16);
-			imm = result.substring(16, 32);
+			rs = instrucao.substring(6, 11);
+			rt = instrucao.substring(11, 16);
+			imm = instrucao.substring(16, 32);
 
 			System.out.println("\nInstrução ANDI:");
 			System.out.println("Andi " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
@@ -324,9 +324,9 @@ public class Interpretador {
 		case "001101":
 
 			// ORI
-			rs = result.substring(6, 11);
-			rt = result.substring(11, 16);
-			imm = result.substring(16, 32);
+			rs = instrucao.substring(6, 11);
+			rt = instrucao.substring(11, 16);
+			imm = instrucao.substring(16, 32);
 
 			System.out.println("\nInstrução ORI:");
 			System.out.println("Ori " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
@@ -337,9 +337,9 @@ public class Interpretador {
 		case "001110":
 
 			// XORI
-			rs = result.substring(6, 11);
-			rt = result.substring(11, 16);
-			imm = result.substring(16, 32);
+			rs = instrucao.substring(6, 11);
+			rt = instrucao.substring(11, 16);
+			imm = instrucao.substring(16, 32);
 
 			System.out.println("\nInstrução XORI:");
 			System.out.println("Xori " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
@@ -351,8 +351,8 @@ public class Interpretador {
 
 			// LUI
 
-			rt = result.substring(11, 16);
-			imm = result.substring(16, 32);
+			rt = instrucao.substring(11, 16);
+			imm = instrucao.substring(16, 32);
 
 			System.out.println("\nInstrução LUI:");
 			System.out.println("Lui " + "$" + util.toDecimalString(rt) + "," + util.toDecimalString(imm));
@@ -361,9 +361,9 @@ public class Interpretador {
 		case "100000":
 
 			// LB
-			rs = result.substring(6, 11);
-			rt = result.substring(11, 16);
-			imm = result.substring(16, 32);
+			rs = instrucao.substring(6, 11);
+			rt = instrucao.substring(11, 16);
+			imm = instrucao.substring(16, 32);
 
 			System.out.println("\nInstrução LB:");
 			System.out.println("Lb " + "$" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
@@ -373,9 +373,9 @@ public class Interpretador {
 		case "100011":
 
 			// LW
-			rs = result.substring(6, 11);
-			rt = result.substring(11, 16);
-			imm = result.substring(16, 32);
+			rs = instrucao.substring(6, 11);
+			rt = instrucao.substring(11, 16);
+			imm = instrucao.substring(16, 32);
 
 			System.out.println("\nInstrução LW:");
 			System.out.println("Lw  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
@@ -385,9 +385,9 @@ public class Interpretador {
 		case "100100":
 
 			// LBU
-			rs = result.substring(6, 11);
-			rt = result.substring(11, 16);
-			imm = result.substring(16, 32);
+			rs = instrucao.substring(6, 11);
+			rt = instrucao.substring(11, 16);
+			imm = instrucao.substring(16, 32);
 
 			System.out.println("\nInstrução LBU:");
 			System.out.println("lbu  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
@@ -397,9 +397,9 @@ public class Interpretador {
 		case "101000":
 
 			// SB
-			rs = result.substring(6, 11);
-			rt = result.substring(11, 16);
-			imm = result.substring(16, 32);
+			rs = instrucao.substring(6, 11);
+			rt = instrucao.substring(11, 16);
+			imm = instrucao.substring(16, 32);
 
 			System.out.println("\nInstrução SB:");
 			System.out.println("Sb  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
@@ -409,16 +409,19 @@ public class Interpretador {
 		case "101011":
 
 			// SW
-			rs = result.substring(6, 11);
-			rt = result.substring(11, 16);
-			imm = result.substring(16, 32);
+			rs = instrucao.substring(6, 11);
+			rt = instrucao.substring(11, 16);
+			imm = instrucao.substring(16, 32);
 
 			System.out.println("\nInstrução SW:");
 			System.out.println("Sw  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
 					+ util.toDecimalString(rs) + ")");
 			break;
+			
+		 default : 
+			 System.out.println("Instrução não reconhecida");
 		}
-		return "Instrução não reconhecida";
+		
 
 	}
 
