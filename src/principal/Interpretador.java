@@ -1,19 +1,17 @@
 package principal;
 
-import java.math.BigInteger;
-
 public class Interpretador {
 
 	public static ControladorRegistradores Controler = new ControladorRegistradores();
 	private static Util util = new Util();
-	
+
 	public Interpretador() {
 
-	}	
+	}
 
 	public static String translateAssembly(String result) {
-		
-		result = util.toBin(result.substring(2,result.length()));
+
+		result = util.toBin(result.substring(2, result.length()));
 
 		// ---------- separação do opCode ---------//
 
@@ -23,11 +21,10 @@ public class Interpretador {
 
 		// -------- estruturação do tipo r -------//
 
-		String rs, rt, rd, sh, fn,imm;
+		String rs, rt, rd, sh, fn, imm;
 
 		// ---------------------------------------//
 
-	
 		switch (opCode) {
 
 		case "000000":
@@ -47,160 +44,170 @@ public class Interpretador {
 			case "100000":
 				// ADD
 				System.out.println("\nInstrução ADD:");
+				System.out.println("Add " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rs) + ", $"
+						+ util.toDecimalString(rt));
 				Controler.add(rd, rs, rt);
-				return ("Add " +"$"+util.toDecimalString(rd)+ ", $" +util.toDecimalString(rs)+", $"+ util.toDecimalString(rt) );
+				break;
 
 			case "100001":
 				// ADDU
 				System.out.println("\nInstrução ADDU:");
+				System.out.println("Addu " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rs) + ", $"
+						+ util.toDecimalString(rt));
 				Controler.addu(rd, rs, rt);
-				return("Addu " +"$"+util.toDecimalString(rd)+ ", $" +util.toDecimalString(rs)+", $"+ util.toDecimalString(rt) );
-
+				break;
 
 			case "100100":
 				// AND
 				System.out.println("\nInstrução AND:");
+				System.out.println("And " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rs) + ", $"
+						+ util.toDecimalString(rt));
 				Controler.and(rd, rs, rt);
-				return ("And " +"$"+util.toDecimalString(rd)+ ", $" +util.toDecimalString(rs)+", $"+ util.toDecimalString(rt) );
-		
+				break;
 
 			case "001000":
 				// JR
 				System.out.println("\nInstrução JR:");
-
-				return ("Jr " +"$"+util.toDecimalString(rs));
-				
+				System.out.println("Jr " + "$" + util.toDecimalString(rs));
+				break;
 
 			case "010000":
 				// MFHI
 				System.out.println("\nInstrução MFHI:");
+				System.out.println("Mfhi " + "$" + util.toDecimalString(rd));
 				Controler.mfhi(rd);
-				return ("Mfhi " +"$"+util.toDecimalString(rd));
-			
+				break;
 
 			case "010010":
 				// MFLO
 				System.out.println("\nInstrução MFLO:");
+				System.out.println("Mflo " + "$" + util.toDecimalString(rd));
 				Controler.mflo(rd);
-				return ("Mflo " +"$"+ util.toDecimalString(rd) );
-			
+				break;
 
 			case "011000":
 				// MULT
 				System.out.println("\nInstrução MULT:");
+				System.out.println("Mult " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt));
 				Controler.mult(rs, rt);
-				return ("Mult " +"$"+util.toDecimalString(rs)+ ", $" +util.toDecimalString(rt));
-				
+				break;
 
 			case "011001":
 				// MULTU
 				System.out.println("\nInstrução MULTU:");
-
-				return ("Multu " +"$"+util.toDecimalString(rs)+ ", $"+ util.toDecimalString(rt) );
-				
+				System.out.println("Multu " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt));
+				Controler.multu(rs, rt);
+				break;
 
 			case "100111":
 				// NOR
 				System.out.println("\nInstrução NOR:");
+				System.out.println("Nor " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rs) + ", $"
+						+ util.toDecimalString(rt));
 				Controler.nor(rd, rs, rt);
-				return ("Nor " +"$"+util.toDecimalString(rd)+ ", $" +util.toDecimalString(rs)+", $"+ util.toDecimalString(rt) );
-				
+				break;
 
 			case "100101":
 				// OR
 				System.out.println("\nInstrução OR:");
-
-				return ("Or " +"$"+util.toDecimalString(rd)+ ", $" +util.toDecimalString(rs)+", $"+ util.toDecimalString(rt) );
-				
+				System.out.println("Or " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rs) + ", $"
+						+ util.toDecimalString(rt));
+				Controler.or(rd, rs, rt);
+				break;
 
 			case "000000":
 				// SLL
 				System.out.println("\nInstrução SLL:");
-
-				return ("Sll " +"$"+util.toDecimalString(rd)+ ", $" +util.toDecimalString(rt)+", $"+ util.toDecimalString(sh) );
-			
+				System.out.println("Sll " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
+						+ util.toDecimalString(sh));
+				break;
 
 			case "000100":
 				// SLLV
 				System.out.println("\nInstrução SLLV:");
-
-				return ("Sllv " +"$"+util.toDecimalString(rd)+ ", $" +util.toDecimalString(rt)+", $"+ util.toDecimalString(rs) );
-				
+				System.out.println("Sllv " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
+						+ util.toDecimalString(rs));
+				break;
 
 			case "101010":
 				// SLT
 				System.out.println("\nInstrução SLT:");
+				System.out.println("Slt " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rs) + ", $"
+						+ util.toDecimalString(rt));
 				Controler.slt(rd, rs, rt);
-				return ("Slt " +"$"+util.toDecimalString(rd)+ ", $" +util.toDecimalString(rs)+", $"+ util.toDecimalString(rt) );
-				
+				break;
 
 			case "000011":
 				// SRA
 				System.out.println("\nInstrução SRA:");
-
-				return ("Sra " +"$"+util.toDecimalString(rd)+ ", $" +util.toDecimalString(rt)+", $"+ util.toDecimalString(sh) );
-		
+				System.out.println("Sra " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
+						+ util.toDecimalString(sh));
+				break;
 
 			case "000111":
 				// SRAV
 				System.out.println("\nInstrução SRAV:");
-
-				return ("Srav " +"$"+util.toDecimalString(rd)+ ", $" +util.toDecimalString(rt)+", $"+ util.toDecimalString(rs) );
-				
+				System.out.println("Srav " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
+						+ util.toDecimalString(rs));
+				break;
 
 			case "000010":
 				// SRL
 				System.out.println("\nInstrução SRL:");
+				System.out.println("Srl " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
+						+ util.toDecimalString(sh));
+				break;
 
-				return ("Srl " +"$"+util.toDecimalString(rd)+ ", $" +util.toDecimalString(rt)+", $"+ util.toDecimalString(sh) );
-				
 			case "000110":
 				// SRLV
 				System.out.println("\nInstrução SRLV:");
-
-				return ("Srlv " +"$"+util.toDecimalString(rd)+ ", $" +util.toDecimalString(rt)+", $"+ util.toDecimalString(rs) );
-				
+				System.out.println("Srlv " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
+						+ util.toDecimalString(rs));
+				break;
 
 			case "100010":
 				// SUB
 				System.out.println("\nInstrução SUB:");
+				System.out.println("Sub " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rs) + ", $"
+						+ util.toDecimalString(rt));
 				Controler.sub(rd, rs, rt);
-				return ("Sub " +"$"+util.toDecimalString(rd)+ ", $" +util.toDecimalString(rs)+", $"+ util.toDecimalString(rt) );
-				
+				break;
 
 			case "100011":
 				// SUBU
 				System.out.println("\nInstrução SUBU:");
+				System.out.println("Subu " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rs) + ", $"
+						+ util.toDecimalString(rt));
 				Controler.subu(rd, rs, rt);
-				return ("Subu " +"$"+util.toDecimalString(rd)+ ", $" +util.toDecimalString(rs)+", $"+ util.toDecimalString(rt) );
-				
+				break;
 
 			case "001100":
 				// SYSCALL
 				System.out.println("\nInstrução SYSCALL:");
-
-				return ("Syscall");
-				
+				System.out.println("Syscall");
+				break;
 
 			case "100110":
 				// XOR
 				System.out.println("\nInstrução XOR:");
-
-				return ("Xor " +"$"+util.toDecimalString(rd)+ ", $" +util.toDecimalString(rs)+", $"+ util.toDecimalString(rt) );
-				
+				System.out.println("Xor " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rs) + ", $"
+						+ util.toDecimalString(rt));
+				Controler.xor(rd, rs, rt);
+				break;
 
 			case "011011":
 				// DIVU
 				System.out.println("\nInstrução DIVU:");
-
-				return ("Divu "+ "$"+util.toDecimalString(rs)+", $"+ util.toDecimalString(rt) );
-				
+				System.out.println("Divu " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt));
+				Controler.divu(rs, rt);
+				break;
 
 			case "011010":
 				// DIV
 				System.out.println("\nInstrução DIV:");
+				System.out.println("Div " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt));
 				Controler.div(rs, rt);
-				return("Div " +"$"+util.toDecimalString(rs)+ ", $" +util.toDecimalString(rt) );
+				break;
 
 			}
 
@@ -208,219 +215,210 @@ public class Interpretador {
 
 		case "000001":
 			// BLTZ
-			
-			rs = result.substring(6, 11);
-			imm= result.substring(16,32);
-			
-			System.out.println("\nInstrução BLTZ:");
 
-			return("Bltz " + "$" + util.toDecimalString(rs) + "," + util.twoComplment(imm));
-			
-			
+			rs = result.substring(6, 11);
+			imm = result.substring(16, 32);
+
+			System.out.println("\nInstrução BLTZ:");
+			System.out.println("Bltz " + "$" + util.toDecimalString(rs) + "," + util.twoComplment(imm));
+			break;
 
 		case "000010":
 			// J
-			
-			imm= result.substring(6,32);
-			
+
+			imm = result.substring(6, 32);
+
 			System.out.println("\nInstrução J:");
-
-			return("J " + "$" + util.toDecimalString(imm));
-
-
+			System.out.println("J " + "$" + util.toDecimalString(imm));
+			break;
 
 		case "000011":
 
 			// JAL
-			
-			imm= result.substring(6,32);
-			
+
+			imm = result.substring(6, 32);
+
 			System.out.println("\nInstrução JAL:");
-
-			return ("Jal " + "$" + util.toDecimalString(imm));
-
-			
+			System.out.println("Jal " + "$" + util.toDecimalString(imm));
+			break;
 
 		case "000100":
 
 			// BEQ
-			
+
 			rs = result.substring(6, 11);
 			rt = result.substring(11, 16);
-			imm= result.substring(16,32);
-			
+			imm = result.substring(16, 32);
+
 			System.out.println("\nInstrução BEQ:");
-
-			return("Beq " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt) + "," + util.twoComplment(imm));
-
+			System.out.println("Beq " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt) + ","
+					+ util.twoComplment(imm));
+			break;
 
 		case "000101":
 
 			// BNE
-			
+
 			rs = result.substring(6, 11);
 			rt = result.substring(11, 16);
-			imm= result.substring(16,32);
-			
+			imm = result.substring(16, 32);
+
 			System.out.println("\nInstrução BNE:");
-
-			return ("Bne " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt) + "," + util.twoComplment(imm));
-
-
+			System.out.println("Bne " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt) + ","
+					+ util.twoComplment(imm));
+			break;
 
 		case "001000":
 
 			// ADDI
 			rs = result.substring(6, 11);
 			rt = result.substring(11, 16);
-			imm= result.substring(16,32);
-			
-			System.out.println("\nInstrução ADDI:");
-			Controler.addi(rt, rs, imm);
-			return("Addi " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + "," + util.toDecimalString(imm));
+			imm = result.substring(16, 32);
 
-		
+			System.out.println("\nInstrução ADDI:");
+			System.out.println("Addi " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
+					+ util.toDecimalString(imm));
+			Controler.addi(rt, rs, imm);
+			break;
 
 		case "001001":
 
 			// ADDIU
 			rs = result.substring(6, 11);
 			rt = result.substring(11, 16);
-			imm= result.substring(16,32);
-			
-			System.out.println("\nInstrução ADDIU:");
-			Controler.addiu(rt, rs, imm);
-			return ("Addiu " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + "," + util.toDecimalString(imm));
+			imm = result.substring(16, 32);
 
+			System.out.println("\nInstrução ADDIU:");
+			System.out.println("Addiu " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
+					+ util.toDecimalString(imm));
+			Controler.addiu(rt, rs, imm);
+			break;
 
 		case "001010":
 
 			// SLTI
-			
+
 			rs = result.substring(6, 11);
 			rt = result.substring(11, 16);
-			imm= result.substring(16,32);
-			
-			System.out.println("\nInstrução SLTI:");
-			Controler.slti(rt, rs, imm);
-			return ("Slti " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + "," + util.toDecimalString(imm));
+			imm = result.substring(16, 32);
 
-		
+			System.out.println("\nInstrução SLTI:");
+			System.out.println("Slti " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
+					+ util.toDecimalString(imm));
+			Controler.slti(rt, rs, imm);
+			break;
 
 		case "001100":
 
 			// ANDI
 			rs = result.substring(6, 11);
 			rt = result.substring(11, 16);
-			imm= result.substring(16,32);
-			
+			imm = result.substring(16, 32);
+
 			System.out.println("\nInstrução ANDI:");
-
-			return ("Andi " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + "," + util.toDecimalString(imm));
-
-			
+			System.out.println("Andi " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
+					+ util.toDecimalString(imm));
+			Controler.andi(rt, rs, imm);
+			break;
 
 		case "001101":
 
 			// ORI
 			rs = result.substring(6, 11);
 			rt = result.substring(11, 16);
-			imm= result.substring(16,32);
-			
+			imm = result.substring(16, 32);
+
 			System.out.println("\nInstrução ORI:");
-
-			return ("Ori " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + "," + util.toDecimalString(imm));
-
-			
+			System.out.println("Ori " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
+					+ util.toDecimalString(imm));
+			Controler.ori(rt, rs, imm);
+			break;
 
 		case "001110":
 
 			// XORI
 			rs = result.substring(6, 11);
 			rt = result.substring(11, 16);
-			imm= result.substring(16,32);
-			
+			imm = result.substring(16, 32);
+
 			System.out.println("\nInstrução XORI:");
-
-			return ("Xori " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + "," + util.toDecimalString(imm));
-
-			
+			System.out.println("Xori " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
+					+ util.toDecimalString(imm));
+			Controler.xori(rt, rs, imm);
+			break;
 
 		case "001111":
 
 			// LUI
-			
+
 			rt = result.substring(11, 16);
-			imm= result.substring(16,32);
-			
+			imm = result.substring(16, 32);
+
 			System.out.println("\nInstrução LUI:");
-
-			return ("Lui " + "$" + util.toDecimalString(rt) + "," + util.toDecimalString(imm));
-
-		
+			System.out.println("Lui " + "$" + util.toDecimalString(rt) + "," + util.toDecimalString(imm));
+			break;
 
 		case "100000":
 
 			// LB
 			rs = result.substring(6, 11);
 			rt = result.substring(11, 16);
-			imm= result.substring(16,32);
-			
+			imm = result.substring(16, 32);
+
 			System.out.println("\nInstrução LB:");
-
-			return ("Lb " + "$" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"+ util.toDecimalString(rs)+ ")");
-
+			System.out.println("Lb " + "$" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
+					+ util.toDecimalString(rs) + ")");
+			break;
 
 		case "100011":
 
 			// LW
 			rs = result.substring(6, 11);
 			rt = result.substring(11, 16);
-			imm= result.substring(16,32);
-			
+			imm = result.substring(16, 32);
+
 			System.out.println("\nInstrução LW:");
-
-			return ("Lw  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($" +util.toDecimalString(rs) +")");
-
+			System.out.println("Lw  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
+					+ util.toDecimalString(rs) + ")");
+			break;
 
 		case "100100":
 
 			// LBU
 			rs = result.substring(6, 11);
 			rt = result.substring(11, 16);
-			imm= result.substring(16,32);
-			
+			imm = result.substring(16, 32);
+
 			System.out.println("\nInstrução LBU:");
-
-			return("lbu  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($" +util.toDecimalString(rs) +")");
-
+			System.out.println("lbu  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
+					+ util.toDecimalString(rs) + ")");
+			break;
 
 		case "101000":
 
 			// SB
 			rs = result.substring(6, 11);
 			rt = result.substring(11, 16);
-			imm= result.substring(16,32);
-			
-			System.out.println("\nInstrução SB:");
+			imm = result.substring(16, 32);
 
-			return ("Sb  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($" +util.toDecimalString(rs) +")");
-			
+			System.out.println("\nInstrução SB:");
+			System.out.println("Sb  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
+					+ util.toDecimalString(rs) + ")");
+			break;
 
 		case "101011":
 
 			// SW
 			rs = result.substring(6, 11);
 			rt = result.substring(11, 16);
-			imm= result.substring(16,32);
-			
+			imm = result.substring(16, 32);
+
 			System.out.println("\nInstrução SW:");
-
-			return ("Sw  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($" +util.toDecimalString(rs) +")");
-
+			System.out.println("Sw  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
+					+ util.toDecimalString(rs) + ")");
+			break;
 		}
 		return "Instrução não reconhecida";
-
 
 	}
 

@@ -6,16 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Arquivo {
-	
-	
-	
-	public Arquivo(){
-		
+
+	public Arquivo() {
+
 	}
-	
 
 	public static ArrayList<String> lerArquivo() {
-		
+
 		ArrayList<String> instrucoes = new ArrayList<String>();
 		BufferedReader leitor = null;
 
