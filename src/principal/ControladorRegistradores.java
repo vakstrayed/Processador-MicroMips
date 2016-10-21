@@ -260,33 +260,36 @@ public class ControladorRegistradores {
 	}
 
 	public void div(String rs, String rt) {
-		long rsB = util.TODecimal(registradores[util.TODecimal(rs)].getConteudo());
-		long rtB = util.TODecimal(registradores[util.TODecimal(rt)].getConteudo());
+		int rsB = util.TODecimal(registradores[util.TODecimal(rs)].getConteudo());
+		int rtB = util.TODecimal(registradores[util.TODecimal(rt)].getConteudo());
 
-		long r = rsB / rtB;
+		int r = rsB / rtB;
+		int resto = rsB % rtB;
 
-		String rS = util.completacomZero64(Long.toBinaryString(r));
+		String rS = util.completacomZero(Integer.toBinaryString(r));
+		String restoS = util.completacomZero(Integer.toBinaryString(resto));
 
-		this.hi.setConteudo(rS.substring(0, 32));
-		this.lo.setConteudo(rS.substring(32, 63));
+		this.hi.setConteudo(restoS);
+		this.lo.setConteudo(rS);
 
 		System.out.println("hi: " + hi.getConteudo() + "\nlo: " + lo.getConteudo());
 
 	}
 
 	public void divu(String rs, String rt) {
-		long rsB = util.TODecimal(registradores[util.TODecimal(rs)].getConteudo());
-		long rtB = util.TODecimal(registradores[util.TODecimal(rt)].getConteudo());
+		int rsB = util.TODecimal(registradores[util.TODecimal(rs)].getConteudo());
+		int rtB = util.TODecimal(registradores[util.TODecimal(rt)].getConteudo());
 
-		long r = rsB / rtB;
+		int r = rsB / rtB;
+		int resto = rsB % rtB;
 
-		String rS = util.completacomZero64(Long.toBinaryString(r));
+		String rS = util.completacomZero(Integer.toBinaryString(r));
+		String restoS = util.completacomZero(Integer.toBinaryString(resto));
 
-		this.hi.setConteudo(rS.substring(0, 32));
-		this.lo.setConteudo(rS.substring(32, 63));
+		this.hi.setConteudo(restoS);
+		this.lo.setConteudo(rS);
 
 		System.out.println("hi: " + hi.getConteudo() + "\nlo: " + lo.getConteudo());
-
 	}
 
 	public void xor(String rd, String rs, String rt) {
