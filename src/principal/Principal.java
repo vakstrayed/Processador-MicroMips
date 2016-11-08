@@ -6,7 +6,7 @@ public class Principal {
 
 	public static void main(String args[]) {
 
-		ArrayList<String> instruções = Arquivo.lerArquivo();
+		ArrayList<String> instruções = Arquivo.getInstance().lerArquivo();
 		for (String s : instruções) {
 			Interpretador.translateAssembly(s);
 		}

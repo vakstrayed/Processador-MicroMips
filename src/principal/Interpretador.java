@@ -43,10 +43,13 @@ public class Interpretador {
 
 			case "100000":
 				// ADD
-				System.out.println("\nInstrução ADD:");
+
 				System.out.println("Add " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rs) + ", $"
 						+ util.toDecimalString(rt));
+
 				Controler.add(rd, rs, rt);
+				Arquivo.getInstance().arquivoSaida("Add " + "$" + util.toDecimalString(rd) + ", $"
+						+ util.toDecimalString(rs) + ", $" + util.toDecimalString(rt), Controler.toString());
 				break;
 
 			case "100001":
@@ -55,6 +58,8 @@ public class Interpretador {
 				System.out.println("Addu " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rs) + ", $"
 						+ util.toDecimalString(rt));
 				Controler.addu(rd, rs, rt);
+				Arquivo.getInstance().arquivoSaida("Addu " + "$" + util.toDecimalString(rd) + ", $"
+						+ util.toDecimalString(rs) + ", $" + util.toDecimalString(rt), Controler.toString());
 				break;
 
 			case "100100":
@@ -63,6 +68,8 @@ public class Interpretador {
 				System.out.println("And " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rs) + ", $"
 						+ util.toDecimalString(rt));
 				Controler.and(rd, rs, rt);
+				Arquivo.getInstance().arquivoSaida("And " + "$" + util.toDecimalString(rd) + ", $"
+						+ util.toDecimalString(rs) + ", $" + util.toDecimalString(rt), Controler.toString());
 				break;
 
 			case "001000":
@@ -217,7 +224,7 @@ public class Interpretador {
 			// BLTZ
 
 			rs = instrucao.substring(6, 11);
-			imm =instrucao.substring(16, 32);
+			imm = instrucao.substring(16, 32);
 
 			System.out.println("\nInstrução BLTZ:");
 			System.out.println("Bltz " + "$" + util.toDecimalString(rs) + "," + util.twoComplment(imm));
@@ -417,11 +424,10 @@ public class Interpretador {
 			System.out.println("Sw  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
 					+ util.toDecimalString(rs) + ")");
 			break;
-			
-		 default : 
-			 System.out.println("Instrução não reconhecida");
+
+		default:
+			System.out.println("Instrução não reconhecida");
 		}
-		
 
 	}
 

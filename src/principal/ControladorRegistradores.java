@@ -9,6 +9,7 @@ public class ControladorRegistradores {
 	private Registrador lo = new Registrador("lo", "00000000000000000000000000000000");
 
 	private Util util = new Util();
+	 
 
 	public ControladorRegistradores() {
 		inicializarRegistradores();
@@ -33,7 +34,8 @@ public class ControladorRegistradores {
 
 		registradores[util.TODecimal(rd)]
 				.setConteudo(util.completacomZero(Integer.toBinaryString(conteudoComplementoS + conteudoComplementoT)));
-
+		
+		
 		System.out.println(toString());
 
 	}
@@ -49,7 +51,8 @@ public class ControladorRegistradores {
 
 		registradores[util.TODecimal(rt)]
 				.setConteudo(util.completacomZero(Integer.toBinaryString(conteudoComplementoS + imediatoComplemento)));
-
+		
+		
 		System.out.println(toString());
 
 	}
@@ -330,7 +333,7 @@ public class ControladorRegistradores {
 
 	@Override
 	public String toString() {
-		return "Registradores :\n" + Arrays.toString(registradores) + "]";
+		return "Registradores :\r\n" + Arrays.toString(registradores) + "]";
 	}
 
 }

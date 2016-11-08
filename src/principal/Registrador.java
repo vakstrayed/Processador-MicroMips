@@ -25,7 +25,7 @@ public class Registrador {
 	
 	@Override
 	public String toString(){
-		return nome+": " + conteudo;
+		return nome+": " + conteudo+"\r\n";
 	}
 
 }
