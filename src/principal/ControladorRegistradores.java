@@ -9,10 +9,12 @@ public class ControladorRegistradores {
 	private Registrador lo = new Registrador("lo", "00000000000000000000000000000000");
 	
 	private Util util = new Util();
+	private ControladorMemoria memoria;
 	 
 
 	public ControladorRegistradores() {
 		inicializarRegistradores();
+		memoria = ControladorMemoria.getIntance();
 	}
 
 	public void inicializarRegistradores() {
@@ -330,7 +332,53 @@ public class ControladorRegistradores {
 		System.out.println(toString());
 
 	}
-
+	public void jr(String rs){
+		String conteudo = registradores[util.TODecimal(rs)].getConteudo();
+		int conteudoD = util.TODecimal(conteudo);
+		memoria.setEnderecoAtual(conteudoD);
+	}
+	public void bltz(String rs,String imm){
+		String conteudo = registradores[util.TODecimal(rs)].getConteudo();
+		int conteudoD = util.TODecimal(conteudo);
+		if(conteudoD< 0){
+			int endereco = util.TODecimal(imm);
+			memoria.setEnderecoAtual(endereco);
+		}
+	}
+	public void beq(String rs,String rt,String imm){
+		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
+		int conteudoRS = util.TODecimal(conteudoRs);
+		
+		String conteudoRt = registradores[util.TODecimal(rt)].getConteudo();
+		int conteudoRT = util.TODecimal(conteudoRt);
+		
+		if(conteudoRS == conteudoRT){
+			int endereco = util.TODecimal(imm);
+			memoria.setEnderecoAtual(endereco);
+		}
+	} 
+	public void bne(String rs,String rt,String imm){
+		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
+		int conteudoRS = util.TODecimal(conteudoRs);
+		
+		String conteudoRt = registradores[util.TODecimal(rt)].getConteudo();
+		int conteudoRT = util.TODecimal(conteudoRt);
+		
+		if(conteudoRS != conteudoRT){
+			int endereco = util.TODecimal(imm);
+			memoria.setEnderecoAtual(endereco);
+		}
+	} 
+	public void j(String imm){
+		 
+		int conteudoD = util.TODecimal(imm);
+		memoria.setEnderecoAtual(conteudoD);
+	}
+	public void jal(String imm){
+		 
+		int conteudoD = util.TODecimal(imm);
+		memoria.setEnderecoAtual(conteudoD);
+	}
 	@Override
 	public String toString() {
 		return "Registradores :\r\n" + Arrays.toString(registradores) + "]";

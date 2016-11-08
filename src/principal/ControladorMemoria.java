@@ -5,15 +5,22 @@ import java.util.HashMap;
 
 public class ControladorMemoria {
 	
+	
+	private static ControladorMemoria instance;
 	private HashMap<Integer,String> memoriaInstrucoes;
 	
 	private int enderecoAtual;
 	private int enderecoFinal;
 
-	public ControladorMemoria(){
+	private ControladorMemoria(){
 		memoriaInstrucoes = new HashMap<Integer,String>();
 		 
 		enderecoAtual =4194304;
+	}
+	public static ControladorMemoria getIntance(){
+		if(instance== null){
+			instance = new ControladorMemoria();
+		}return instance;
 	}
 	
 	public void addInstrucao(String instrucao){
