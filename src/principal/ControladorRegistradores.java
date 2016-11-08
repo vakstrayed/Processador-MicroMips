@@ -7,7 +7,7 @@ public class ControladorRegistradores {
 	private Registrador[] registradores = new Registrador[32];
 	private Registrador hi = new Registrador("hi", "00000000000000000000000000000000");
 	private Registrador lo = new Registrador("lo", "00000000000000000000000000000000");
-
+	
 	private Util util = new Util();
 	 
 

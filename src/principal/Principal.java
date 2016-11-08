@@ -10,7 +10,6 @@ public class Principal {
 		for (String s : instruções) {
 			Interpretador.translateAssembly(s);
 		}
-
 	}
 
 }

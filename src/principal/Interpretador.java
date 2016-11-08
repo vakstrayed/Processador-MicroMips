@@ -5,7 +5,8 @@ public class Interpretador {
 	public static ControladorRegistradores Controler = new ControladorRegistradores();
 	private static Util util = new Util();
 
-	public Interpretador() {
+	public Interpretador() 
+	{
 
 	}
 
