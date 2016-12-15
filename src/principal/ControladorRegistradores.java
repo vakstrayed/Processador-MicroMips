@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class ControladorRegistradores {
 
 	private Registrador[] registradores = new Registrador[32];
+	private Registrador[] Aux = new Registrador[32];
 	private Registrador hi = new Registrador("hi", "00000000000000000000000000000000");
 	private Registrador lo = new Registrador("lo", "00000000000000000000000000000000");
 	
@@ -381,7 +382,30 @@ public class ControladorRegistradores {
 	}
 	@Override
 	public String toString() {
-		return "Registradores :\r\n" + Arrays.toString(registradores) + "]";
+		String conteudo;
+		
+		for(int i=0;i<registradores.length;i++){
+			
+			conteudo = util.twoComplment(registradores[i].getConteudo());
+
+			Aux[i] = new Registrador("$" + i,conteudo );
+			
+		}
+		
+		return Arrays.toString(Aux);
+	}
+	public String toStringHILO(){
+		
+		String conteudoHI,conteudoLO;
+		
+		conteudoHI = util.twoComplment(hi.getConteudo());
+		conteudoLO = util.twoComplment(lo.getConteudo());
+
+		
+		Registrador Hi1 = new Registrador("hi", conteudoHI);
+		Registrador Lo1 = new Registrador("lo", conteudoLO);
+		
+		return (Hi1.toString()+";"+"\r\n"+Lo1.toString()+";");
 	}
 
 }

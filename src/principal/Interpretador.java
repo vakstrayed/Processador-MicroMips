@@ -77,6 +77,8 @@ public class Interpretador {
 				// JR
 				System.out.println("\nInstrução JR:");
 				System.out.println("Jr " + "$" + util.toDecimalString(rs));
+				Controler.jr(rs);
+				Arquivo.getInstance().arquivoSaida("Jr " + "$" + util.toDecimalString(rs), Controler.toString());
 				break;
 
 			case "010000":
@@ -84,6 +86,8 @@ public class Interpretador {
 				System.out.println("\nInstrução MFHI:");
 				System.out.println("Mfhi " + "$" + util.toDecimalString(rd));
 				Controler.mfhi(rd);
+				Arquivo.getInstance().arquivoSaidaExclusivo("Mfhi " + "$" + util.toDecimalString(rd),Controler.toStringHILO(), Controler.toString());
+				System.out.println(Controler.toStringHILO());
 				break;
 
 			case "010010":
@@ -91,6 +95,8 @@ public class Interpretador {
 				System.out.println("\nInstrução MFLO:");
 				System.out.println("Mflo " + "$" + util.toDecimalString(rd));
 				Controler.mflo(rd);
+				Arquivo.getInstance().arquivoSaidaExclusivo("Mflo " + "$" + util.toDecimalString(rd),Controler.toStringHILO(), Controler.toString());
+				System.out.println(Controler.toStringHILO());
 				break;
 
 			case "011000":
@@ -98,6 +104,7 @@ public class Interpretador {
 				System.out.println("\nInstrução MULT:");
 				System.out.println("Mult " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt));
 				Controler.mult(rs, rt);
+				Arquivo.getInstance().arquivoSaidaExclusivo("Mult " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt),Controler.toStringHILO(), Controler.toString());
 				break;
 
 			case "011001":
@@ -105,6 +112,7 @@ public class Interpretador {
 				System.out.println("\nInstrução MULTU:");
 				System.out.println("Multu " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt));
 				Controler.multu(rs, rt);
+				Arquivo.getInstance().arquivoSaidaExclusivo("Multu " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt),Controler.toStringHILO(), Controler.toString());
 				break;
 
 			case "100111":

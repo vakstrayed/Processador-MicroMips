@@ -77,4 +77,26 @@ public class Arquivo {
 		}
 		
 	}
+	
+	
+	public  void arquivoSaidaExclusivo(String instrucao,String hilo, String registradores){
+	
+		
+		try {
+			if (new File("saida.txt").exists() == false) {
+
+				new File("saida.txt").createNewFile();
+
+			}
+			
+			escritor.append("\r\n"+instrucao + "\r\n");
+			escritor.append(hilo  + "\r\n");
+			escritor.append(registradores	 + "\r\n");
+			escritor.flush();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 }

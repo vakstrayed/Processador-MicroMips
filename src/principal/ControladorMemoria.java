@@ -15,19 +15,15 @@ public class ControladorMemoria {
 	private ControladorMemoria(){
 		memoriaInstrucoes = new HashMap<Integer,String>();
 		 
-		enderecoAtual =4194304;
+		enderecoAtual = 0;
 	}
 	public static ControladorMemoria getIntance(){
 		if(instance== null){
 			instance = new ControladorMemoria();
 		}return instance;
 	}
-	
-	public void addInstrucao(String instrucao){
-		//memoriaInstrucoes.put(, instrucao); 
-	}
 	public void povoaMemoria(){
-		int end = 4194300;
+		int end = -4;
 		
 		ArrayList<String> instrucoes = Arquivo.getInstance().lerArquivo();
 		for (String s : instrucoes) {
