@@ -96,4 +96,24 @@ public class Arquivo {
 		}
 
 	}
+
+	public void arquivoToDaTaMemo(String instrucao, String memo, String registradores) {
+
+		try {
+			if (new File("saida.txt").exists() == false) {
+
+				new File("saida.txt").createNewFile();
+
+			}
+
+			escritor.append("\r\n" + instrucao + "\r\n");
+			escritor.append("Memoria de dados: " + memo + "\r\n");
+			escritor.append(registradores + "\r\n");
+			escritor.flush();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 }
