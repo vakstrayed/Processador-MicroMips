@@ -1,6 +1,8 @@
 package principal;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ControladorRegistradores {
 
@@ -8,7 +10,7 @@ public class ControladorRegistradores {
 	private Registrador[] Aux = new Registrador[32];
 	private Registrador hi = new Registrador("hi", "00000000000000000000000000000000");
 	private Registrador lo = new Registrador("lo", "00000000000000000000000000000000");
-	private MemoriaDados MemData = new MemoriaDados();
+	private List<Registrador> MemoriaDado = new ArrayList<Registrador>();
 
 	private Util util = new Util();
 	private ControladorMemoria memoria;
