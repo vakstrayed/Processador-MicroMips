@@ -154,6 +154,7 @@ public class Interpretador {
 				System.out.println("\nInstrução SLLV:");
 				System.out.println("Sllv " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
 						+ util.toDecimalString(rs));
+				
 				break;
 
 			case "101010":
@@ -162,6 +163,9 @@ public class Interpretador {
 				System.out.println("Slt " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rs) + ", $"
 						+ util.toDecimalString(rt));
 				Controler.slt(rd, rs, rt);
+				Arquivo.getInstance().arquivoSaida("Slt " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rs) + ", $"
+						+ util.toDecimalString(rt) , Controler.toString());
+				
 				break;
 
 			case "000011":
@@ -169,6 +173,8 @@ public class Interpretador {
 				System.out.println("\nInstrução SRA:");
 				System.out.println("Sra " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
 						+ util.toDecimalString(sh));
+				
+				
 				break;
 
 			case "000111":
@@ -183,6 +189,8 @@ public class Interpretador {
 				System.out.println("\nInstrução SRL:");
 				System.out.println("Srl " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
 						+ util.toDecimalString(sh));
+				
+				
 				break;
 
 			case "000110":
@@ -265,6 +273,9 @@ public class Interpretador {
 
 			System.out.println("\nInstrução BLTZ:");
 			System.out.println("Bltz " + "$" + util.toDecimalString(rs) + "," + util.twoComplment(imm));
+			Controler.bltz(rs, imm);
+			Arquivo.getInstance().arquivoSaida("Bltz " + "$" + util.toDecimalString(rs) + "," + util.twoComplment(imm), Controler.toString());
+			
 			break;
 
 		case "000010":
@@ -274,6 +285,9 @@ public class Interpretador {
 
 			System.out.println("\nInstrução J:");
 			System.out.println("J " + "$" + util.toDecimalString(imm));
+			Controler.j(imm);
+			Arquivo.getInstance().arquivoSaida("J " + "$" + util.toDecimalString(imm), Controler.toString());
+			
 			break;
 
 		case "000011":
@@ -284,6 +298,10 @@ public class Interpretador {
 
 			System.out.println("\nInstrução JAL:");
 			System.out.println("Jal " + "$" + util.toDecimalString(imm));
+			//Controler.jal(imm);
+			//Arquivo.getInstance().arquivoSaida("Jal " + "$" + util.toDecimalString(imm), Controler.toString());
+			
+			
 			break;
 
 		case "000100":
@@ -297,6 +315,10 @@ public class Interpretador {
 			System.out.println("\nInstrução BEQ:");
 			System.out.println("Beq " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt) + ","
 					+ util.twoComplment(imm));
+			Controler.beq(rs, rt, imm);
+			Arquivo.getInstance().arquivoSaida("Beq " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt) + ","
+					+ util.twoComplment(imm), Controler.toString());
+			
 			break;
 
 		case "000101":
@@ -310,6 +332,10 @@ public class Interpretador {
 			System.out.println("\nInstrução BNE:");
 			System.out.println("Bne " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt) + ","
 					+ util.twoComplment(imm));
+			Controler.bne(rs, rt, imm);
+			Arquivo.getInstance().arquivoSaida("Bne " + "$" + util.toDecimalString(rs) + ", $" + util.toDecimalString(rt) + ","
+					+ util.twoComplment(imm), Controler.toString());
+			
 			break;
 
 		case "001000":
@@ -323,6 +349,9 @@ public class Interpretador {
 			System.out.println("Addi " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
 					+ util.toDecimalString(imm));
 			Controler.addi(rt, rs, imm);
+			Arquivo.getInstance().arquivoSaida("Addi " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
+					+ util.toDecimalString(imm), Controler.toString());
+			
 			break;
 
 		case "001001":
@@ -336,6 +365,9 @@ public class Interpretador {
 			System.out.println("Addiu " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
 					+ util.toDecimalString(imm));
 			Controler.addiu(rt, rs, imm);
+			Arquivo.getInstance().arquivoSaida("Addiu " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
+					+ util.toDecimalString(imm), Controler.toString());
+			
 			break;
 
 		case "001010":
@@ -350,6 +382,9 @@ public class Interpretador {
 			System.out.println("Slti " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
 					+ util.toDecimalString(imm));
 			Controler.slti(rt, rs, imm);
+			Arquivo.getInstance().arquivoSaida("Slti " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
+					+ util.toDecimalString(imm), Controler.toString());
+			
 			break;
 
 		case "001100":
@@ -363,6 +398,9 @@ public class Interpretador {
 			System.out.println("Andi " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
 					+ util.toDecimalString(imm));
 			Controler.andi(rt, rs, imm);
+			Arquivo.getInstance().arquivoSaida("Andi " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
+					+ util.toDecimalString(imm), Controler.toString());
+			
 			break;
 
 		case "001101":
@@ -376,6 +414,9 @@ public class Interpretador {
 			System.out.println("Ori " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
 					+ util.toDecimalString(imm));
 			Controler.ori(rt, rs, imm);
+			Arquivo.getInstance().arquivoSaida("Ori " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
+					+ util.toDecimalString(imm), Controler.toString());
+			
 			break;
 
 		case "001110":
@@ -389,6 +430,9 @@ public class Interpretador {
 			System.out.println("Xori " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
 					+ util.toDecimalString(imm));
 			Controler.xori(rt, rs, imm);
+			Arquivo.getInstance().arquivoSaida("Xori " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
+					+ util.toDecimalString(imm), Controler.toString());
+			
 			break;
 
 		case "001111":
@@ -400,6 +444,8 @@ public class Interpretador {
 
 			System.out.println("\nInstrução LUI:");
 			System.out.println("Lui " + "$" + util.toDecimalString(rt) + "," + util.toDecimalString(imm));
+			
+			
 			break;
 
 		case "100000":
@@ -412,6 +458,8 @@ public class Interpretador {
 			System.out.println("\nInstrução LB:");
 			System.out.println("Lb " + "$" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
 					+ util.toDecimalString(rs) + ")");
+			
+			
 			break;
 
 		case "100011":
@@ -436,6 +484,8 @@ public class Interpretador {
 			System.out.println("\nInstrução LBU:");
 			System.out.println("lbu  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
 					+ util.toDecimalString(rs) + ")");
+			
+			
 			break;
 
 		case "101000":
@@ -448,6 +498,8 @@ public class Interpretador {
 			System.out.println("\nInstrução SB:");
 			System.out.println("Sb  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
 					+ util.toDecimalString(rs) + ")");
+			
+			
 			break;
 
 		case "101011":

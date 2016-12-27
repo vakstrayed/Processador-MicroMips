@@ -8,10 +8,10 @@ public class ControladorRegistradores {
 	private Registrador[] Aux = new Registrador[32];
 	private Registrador hi = new Registrador("hi", "00000000000000000000000000000000");
 	private Registrador lo = new Registrador("lo", "00000000000000000000000000000000");
-	
+	private MemoriaDados MemData = new MemoriaDados();
+
 	private Util util = new Util();
 	private ControladorMemoria memoria;
-	 
 
 	public ControladorRegistradores() {
 		inicializarRegistradores();
@@ -37,8 +37,7 @@ public class ControladorRegistradores {
 
 		registradores[util.TODecimal(rd)]
 				.setConteudo(util.completacomZero(Integer.toBinaryString(conteudoComplementoS + conteudoComplementoT)));
-		
-		
+
 		System.out.println(toString());
 
 	}
@@ -54,8 +53,7 @@ public class ControladorRegistradores {
 
 		registradores[util.TODecimal(rt)]
 				.setConteudo(util.completacomZero(Integer.toBinaryString(conteudoComplementoS + imediatoComplemento)));
-		
-		
+
 		System.out.println(toString());
 
 	}
@@ -268,8 +266,7 @@ public class ControladorRegistradores {
 	public void div(String rs, String rt) {
 		int rsB = util.TODecimal(registradores[util.TODecimal(rs)].getConteudo());
 		int rtB = util.TODecimal(registradores[util.TODecimal(rt)].getConteudo());
-		
-		
+
 		if (rtB > 0) {
 			int r = rsB / rtB;
 			int resto = rsB % rtB;
@@ -279,9 +276,7 @@ public class ControladorRegistradores {
 
 			this.hi.setConteudo(restoS);
 			this.lo.setConteudo(rS);
-		}
-		else
-		{
+		} else {
 			this.hi.setConteudo(util.completacomZero("0"));
 			this.lo.setConteudo(util.completacomZero("0"));
 		}
@@ -303,8 +298,7 @@ public class ControladorRegistradores {
 
 			this.hi.setConteudo(restoS);
 			this.lo.setConteudo(rS);
-		}
-		else{
+		} else {
 			this.hi.setConteudo(util.completacomZero("0"));
 			this.lo.setConteudo(util.completacomZero("0"));
 		}
@@ -333,79 +327,140 @@ public class ControladorRegistradores {
 		System.out.println(toString());
 
 	}
-	public void jr(String rs){
+
+	public void jr(String rs) {
 		String conteudo = registradores[util.TODecimal(rs)].getConteudo();
 		int conteudoD = util.TODecimal(conteudo);
 		memoria.setEnderecoAtual(conteudoD);
 	}
-	public void bltz(String rs,String imm){
+
+	public void bltz(String rs, String imm) {
 		String conteudo = registradores[util.TODecimal(rs)].getConteudo();
 		int conteudoD = util.TODecimal(conteudo);
-		if(conteudoD< 0){
+		if (conteudoD < 0) {
 			int endereco = util.TODecimal(imm);
 			memoria.setEnderecoAtual(endereco);
 		}
 	}
-	public void beq(String rs,String rt,String imm){
+
+	public void beq(String rs, String rt, String imm) {
 		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
 		int conteudoRS = util.TODecimal(conteudoRs);
-		
+
 		String conteudoRt = registradores[util.TODecimal(rt)].getConteudo();
 		int conteudoRT = util.TODecimal(conteudoRt);
-		
-		if(conteudoRS == conteudoRT){
+
+		if (conteudoRS == conteudoRT) {
 			int endereco = util.TODecimal(imm);
 			memoria.setEnderecoAtual(endereco);
 		}
-	} 
-	public void bne(String rs,String rt,String imm){
+	}
+
+	public void bne(String rs, String rt, String imm) {
 		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
 		int conteudoRS = util.TODecimal(conteudoRs);
-		
+
 		String conteudoRt = registradores[util.TODecimal(rt)].getConteudo();
 		int conteudoRT = util.TODecimal(conteudoRt);
-		
-		if(conteudoRS != conteudoRT){
+
+		if (conteudoRS != conteudoRT) {
 			int endereco = util.TODecimal(imm);
 			memoria.setEnderecoAtual(endereco);
 		}
-	} 
-	public void j(String imm){
-		 
+	}
+
+	public void j(String imm) {
+
 		int conteudoD = util.TODecimal(imm);
 		memoria.setEnderecoAtual(conteudoD);
 	}
-	public void jal(String imm){
-		 
+
+	public void jal(String imm) {
+
 		int conteudoD = util.TODecimal(imm);
 		memoria.setEnderecoAtual(conteudoD);
+		//falta coisa aqui
+		
 	}
-	@Override
+	
+	public void sll(){
+		
+	}
+	
+	public void sllv(){
+		
+	}
+	
+	public void sra(){
+		
+	}
+	
+	public void srav(){
+		
+	}
+	
+	public void srl(){
+		
+	}
+	
+	public void srlv(){
+		
+	}
+	
+	public void syscall(){
+		
+	}
+	
+	public void lui(){
+		
+	}
+	
+	public void lb(){
+		
+	}
+	
+	public void lw(){
+		
+	}
+	
+	public void lbu(){
+		
+	}
+	
+	public void sb(){
+		
+	}
+	
+	public void sw(){
+		
+	}
+
 	public String toString() {
 		String conteudo;
-		
-		for(int i=0;i<registradores.length;i++){
-			
+
+		for (int i = 0; i < registradores.length; i++) {
+
 			conteudo = util.twoComplment(registradores[i].getConteudo());
 
-			Aux[i] = new Registrador("$" + i,conteudo );
-			
+			Aux[i] = new Registrador("$" + i, conteudo);
+
 		}
-		
+
 		return Arrays.toString(Aux);
 	}
-	public String toStringHILO(){
-		
-		String conteudoHI,conteudoLO;
-		
+
+	public String toStringHILO() {
+
+		String conteudoHI, conteudoLO;
+
 		conteudoHI = util.twoComplment(hi.getConteudo());
 		conteudoLO = util.twoComplment(lo.getConteudo());
 
-		
 		Registrador Hi1 = new Registrador("hi", conteudoHI);
 		Registrador Lo1 = new Registrador("lo", conteudoLO);
-		
-		return (Hi1.toString()+";"+"\r\n"+Lo1.toString()+";");
+
+		return (Hi1.toString() + ";" + "\r\n" + Lo1.toString() + ";");
 	}
+	
 
 }

@@ -12,29 +12,30 @@ public class Arquivo {
 
 	private static Arquivo instance = null;
 	private BufferedWriter escritor = null;
-	
-	private Arquivo(){
+
+	private Arquivo() {
 		try {
 			escritor = new BufferedWriter(new FileWriter("saida.txt"));
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 	}
-	public static Arquivo getInstance(){
-		if(instance == null){
+
+	public static Arquivo getInstance() {
+		if (instance == null) {
 			instance = new Arquivo();
 		}
 		return instance;
 	}
 
-	public  ArrayList<String> lerArquivo() {
+	public ArrayList<String> lerArquivo() {
 
 		ArrayList<String> instrucoes = new ArrayList<String>();
 		BufferedReader leitor = null;
 
 		try {
-			
+
 			leitor = new BufferedReader(new FileReader("entrada.txt"));
 
 			String linha = "";
@@ -56,47 +57,43 @@ public class Arquivo {
 		return instrucoes;
 
 	}
-	
-	
-	public  void arquivoSaida(String instrucao,String registradores){
-	
-		
+
+	public void arquivoSaida(String instrucao, String registradores) {
+
 		try {
 			if (new File("saida.txt").exists() == false) {
 
 				new File("saida.txt").createNewFile();
 
 			}
-			
-			escritor.append("\r\n"+instrucao + "\r\n");
-			escritor.append(registradores	 + "\r\n");
+
+			escritor.append("\r\n" + instrucao + "\r\n");
+			escritor.append(registradores + "\r\n");
 			escritor.flush();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	
-	public  void arquivoSaidaExclusivo(String instrucao,String hilo, String registradores){
-	
-		
+
+	public void arquivoSaidaExclusivo(String instrucao, String hilo, String registradores) {
+
 		try {
 			if (new File("saida.txt").exists() == false) {
 
 				new File("saida.txt").createNewFile();
 
 			}
-			
-			escritor.append("\r\n"+instrucao + "\r\n");
-			escritor.append(hilo  + "\r\n");
-			escritor.append(registradores	 + "\r\n");
+
+			escritor.append("\r\n" + instrucao + "\r\n");
+			escritor.append(hilo + "\r\n");
+			escritor.append(registradores + "\r\n");
 			escritor.flush();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 }
