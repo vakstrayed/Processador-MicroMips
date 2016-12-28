@@ -381,60 +381,76 @@ public class ControladorRegistradores {
 
 		int conteudoD = util.TODecimal(imm);
 		memoria.setEnderecoAtual(conteudoD);
-		//falta coisa aqui
-		
+		// falta coisa aqui
+
 	}
-	
-	public void sll(){
-		
+
+	public void sll() {
+
 	}
-	
-	public void sllv(){
-		
+
+	public void sllv() {
+
 	}
-	
-	public void sra(){
-		
+
+	public void sra() {
+
 	}
-	
-	public void srav(){
-		
+
+	public void srav() {
+
 	}
-	
-	public void srl(){
-		
+
+	public void srl() {
+
 	}
-	
-	public void srlv(){
-		
+
+	public void srlv() {
+
 	}
-	
-	public void syscall(){
-		
+
+	public void syscall() {
+
 	}
-	
-	public void lui(){
-		
+
+	public void lui() {
+
 	}
-	
-	public void lb(){
-		
+
+	public void lb() {
+
 	}
-	
-	public void lw(){
-		
+
+	public void lw() {
+
 	}
-	
-	public void lbu(){
-		
+
+	public void lbu() {
+
 	}
-	
-	public void sb(){
-		
+
+	public void sb() {
+
 	}
-	
-	public void sw(){
-		
+
+	public void sw() {
+
+	}
+
+	public void verificaMD(String id) {
+
+		int key = 0;
+
+		for (int i = 0; i < MemoriaDado.size(); i++) {
+			if (MemoriaDado.get(i).getNome().equals(id)) {
+				key = 1;
+			}
+		}
+		if (key == 0) {
+			Registrador v = new Registrador(id, "");
+			MemoriaDado.add(v);
+		}
+
 	}
 
 	public String toString() {
@@ -463,6 +479,5 @@ public class ControladorRegistradores {
 
 		return (Hi1.toString() + ";" + "\r\n" + Lo1.toString() + ";");
 	}
-	
 
 }
