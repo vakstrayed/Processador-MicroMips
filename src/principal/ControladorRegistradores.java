@@ -480,4 +480,20 @@ public class ControladorRegistradores {
 		return (Hi1.toString() + ";" + "\r\n" + Lo1.toString() + ";");
 	}
 
+	public String toStringMemoDado() {
+
+		String conteudo;
+		List<Registrador> DataMemo = new ArrayList<Registrador>();
+
+		for (int i = 0; i < MemoriaDado.size(); i++) {
+
+			conteudo = util.twoComplment(MemoriaDado.get(i).getConteudo());
+
+			DataMemo.add(new Registrador(MemoriaDado.get(i).getNome(), conteudo));
+
+		}
+
+		return DataMemo.toString();
+	}
+
 }
