@@ -385,6 +385,38 @@ public class ControladorRegistradores {
 
 	}
 
+	public void lb(String rt, String imm, String rs) {
+
+		int conteudoIMM = util.TODecimal(imm);
+		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
+		int conteudoRS = util.TODecimal(conteudoRs);
+
+		int soma = conteudoIMM + conteudoRS;
+		String r = Integer.toString(soma);
+
+		verificaMD(r);
+		String data = getMemoriaDADO(r);
+
+		registradores[util.TODecimal(rt)].setConteudo(util.completacomZero(data));
+
+	}
+
+	public void lbu(String rt, String imm, String rs) {
+
+		int conteudoIMM = util.TODecimal(imm);
+		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
+		int conteudoRS = util.TODecimal(conteudoRs);
+
+		int soma = conteudoIMM + conteudoRS;
+		String r = Integer.toString(soma);
+
+		verificaMD(r);
+		String data = getMemoriaDADO(r);
+
+		registradores[util.TODecimal(rt)].setConteudo(util.completacomZero(data));
+
+	}
+
 	public void sll() {
 
 	}
@@ -417,15 +449,7 @@ public class ControladorRegistradores {
 
 	}
 
-	public void lb() {
-
-	}
-
 	public void lw() {
-
-	}
-
-	public void lbu() {
 
 	}
 
@@ -447,8 +471,31 @@ public class ControladorRegistradores {
 			}
 		}
 		if (key == 0) {
-			Registrador v = new Registrador(id, "");
+			Registrador v = new Registrador(id, "00000000");
 			MemoriaDado.add(v);
+		}
+
+	}
+
+	public String getMemoriaDADO(String id) {
+
+		String dado = null;
+
+		for (int i = 0; i < MemoriaDado.size(); i++) {
+			if (MemoriaDado.get(i).getNome().equals(id)) {
+				dado = MemoriaDado.get(i).getConteudo();
+			}
+		}
+		return dado;
+	}
+
+	public void setMemoriaDADO(String id, String dado) {
+
+		verificaMD(id);
+		for (int i = 0; i < MemoriaDado.size(); i++) {
+			if (MemoriaDado.get(i).getNome().equals(id)) {
+				MemoriaDado.get(i).setConteudo(dado);
+			}
 		}
 
 	}

@@ -28,7 +28,12 @@ public class ControladorMemoria {
 		ArrayList<String> instrucoes = Arquivo.getInstance().lerArquivo();
 		for (String s : instrucoes) {
 			end = end +4;
-			memoriaInstrucoes.put(end,s); 
+			
+			if (s.length() == 10)
+				memoriaInstrucoes.put(end,(s.substring(2, s.length()))) ;
+			else if (s.length() == 8)
+				memoriaInstrucoes.put(end,s); 
+			
 		}
 		enderecoFinal = end;
 		
