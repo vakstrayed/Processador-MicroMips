@@ -10,7 +10,10 @@ public class Interpretador {
 	}
 
 	public static void translateAssembly(String instrucao) {
-
+		
+		System.out.println(ControladorMemoria.getIntance().getEnderecoAtual());
+		
+		
 		if (instrucao.length() == 10)
 			instrucao = util.toBin(instrucao.substring(2, instrucao.length()));
 		else if (instrucao.length() == 8)
@@ -349,10 +352,10 @@ public class Interpretador {
 
 			System.out.println("\nInstrução ADDI:");
 			System.out.println("Addi " + "$" + util.toDecimalString(rt) + ", $" + util.toDecimalString(rs) + ","
-					+ util.toDecimalString(imm));
+					+ util.twoComplment(imm));
 			Controler.addi(rt, rs, imm);
 			Arquivo.getInstance().arquivoSaida("Addi " + "$" + util.toDecimalString(rt) + ", $"
-					+ util.toDecimalString(rs) + "," + util.toDecimalString(imm), Controler.toString());
+					+ util.toDecimalString(rs) + "," + util.twoComplment(imm), Controler.toString());
 
 			break;
 

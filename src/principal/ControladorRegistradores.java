@@ -347,20 +347,24 @@ public class ControladorRegistradores {
 
 	public void bltz(String rs, String imm) {
 		String conteudo = registradores[util.TODecimal(rs)].getConteudo();
-		int conteudoD = util.TODecimal(conteudo);
+		String conteudoDD = util.twoComplment(conteudo);
+		int conteudoD = Integer.parseInt(conteudoDD);
 		if (conteudoD < 0) {
 			int endereco = util.TODecimal(imm);
+			System.out.println(endereco);
 			memoria.setEnderecoAtual(endereco);
 		}
 	}
 
 	public void beq(String rs, String rt, String imm) {
-		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
-		int conteudoRS = util.TODecimal(conteudoRs);
-
-		String conteudoRt = registradores[util.TODecimal(rt)].getConteudo();
-		int conteudoRT = util.TODecimal(conteudoRt);
-
+		String conteudo = registradores[util.TODecimal(rs)].getConteudo();
+		String conteudoDD = util.twoComplment(conteudo);
+		int conteudoRS = Integer.parseInt(conteudoDD);
+		
+		String conteudoA = registradores[util.TODecimal(rs)].getConteudo();
+		String conteudoAA = util.twoComplment(conteudoA);
+		int conteudoRT = Integer.parseInt(conteudoAA);
+		
 		if (conteudoRS == conteudoRT) {
 			int endereco = util.TODecimal(imm);
 			memoria.setEnderecoAtual(endereco);
@@ -368,11 +372,13 @@ public class ControladorRegistradores {
 	}
 
 	public void bne(String rs, String rt, String imm) {
-		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
-		int conteudoRS = util.TODecimal(conteudoRs);
-
-		String conteudoRt = registradores[util.TODecimal(rt)].getConteudo();
-		int conteudoRT = util.TODecimal(conteudoRt);
+		String conteudo = registradores[util.TODecimal(rs)].getConteudo();
+		String conteudoDD = util.twoComplment(conteudo);
+		int conteudoRS = Integer.parseInt(conteudoDD);
+		
+		String conteudoA = registradores[util.TODecimal(rs)].getConteudo();
+		String conteudoAA = util.twoComplment(conteudoA);
+		int conteudoRT = Integer.parseInt(conteudoAA);
 
 		if (conteudoRS != conteudoRT) {
 			int endereco = util.TODecimal(imm);
@@ -441,12 +447,11 @@ public class ControladorRegistradores {
 	}
 
 	public void lui(String rt, String imm) {
-
-		String contIMM = util.toDecimalString(imm);
-		String moreSGimm = contIMM.substring(17);
+		
+		
 		String zeros = "0000000000000000";
 
-		String r = moreSGimm.concat(zeros);
+		String r = imm.concat(zeros);
 
 		registradores[util.TODecimal(rt)].setConteudo(r);
 
@@ -545,7 +550,7 @@ public class ControladorRegistradores {
 			}
 		}
 		if (key == 0) {
-			Registrador v = new Registrador(id, "00000000");
+			Registrador v = new Registrador(id, "00000000000000000000000000000000");
 			MemoriaDado.add(v);
 		}
 
