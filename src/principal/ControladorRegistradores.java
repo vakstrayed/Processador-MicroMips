@@ -399,8 +399,6 @@ public class ControladorRegistradores {
 
 		memoria.setEnderecoAtual(conteudoD);
 
-		endereco = endereco + 4;
-
 		String r = util.completacomZero(Integer.toBinaryString(endereco));
 
 		registradores[31].setConteudo(r);
