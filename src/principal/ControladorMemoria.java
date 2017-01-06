@@ -4,39 +4,41 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ControladorMemoria {
-	
-	
+
 	private static ControladorMemoria instance;
-	private HashMap<Integer,String> memoriaInstrucoes;
-	
+	private HashMap<Integer, String> memoriaInstrucoes;
+
 	private int enderecoAtual;
 	private int enderecoFinal;
 
-	private ControladorMemoria(){
-		memoriaInstrucoes = new HashMap<Integer,String>();
-		 
+	private ControladorMemoria() {
+		memoriaInstrucoes = new HashMap<Integer, String>();
+
 		enderecoAtual = 0;
 	}
-	public static ControladorMemoria getIntance(){
-		if(instance== null){
+
+	public static ControladorMemoria getIntance() {
+		if (instance == null) {
 			instance = new ControladorMemoria();
-		}return instance;
+		}
+		return instance;
 	}
-	public void povoaMemoria(){
+
+	public void povoaMemoria() {
 		int end = -4;
-		
+
 		ArrayList<String> instrucoes = Arquivo.getInstance().lerArquivo();
 		for (String s : instrucoes) {
-			end = end +4;
-			
+			end = end + 4;
+
 			if (s.length() == 10)
-				memoriaInstrucoes.put(end,(s.substring(2, s.length()))) ;
+				memoriaInstrucoes.put(end, (s.substring(2, s.length())));
 			else if (s.length() == 8)
-				memoriaInstrucoes.put(end,s); 
-			
+				memoriaInstrucoes.put(end, s);
+
 		}
 		enderecoFinal = end;
-		
+
 	}
 
 	public int getEnderecoAtual() {
@@ -46,13 +48,13 @@ public class ControladorMemoria {
 	public void setEnderecoAtual(int enderecoAtual) {
 		this.enderecoAtual = enderecoAtual;
 	}
-	public void executar(){
-		while(enderecoAtual < enderecoFinal){
+
+	public void executar() {
+		povoaMemoria();
+		while (enderecoAtual < enderecoFinal) {
 			Interpretador.translateAssembly(memoriaInstrucoes.get(enderecoAtual));
-			enderecoAtual = enderecoAtual+4;
+			enderecoAtual = enderecoAtual + 4;
 		}
 	}
-	
-	
-	
+
 }

@@ -236,10 +236,14 @@ public class ControladorRegistradores {
 	}
 
 	public void mult(String rs, String rt) {
-		long rsB = util.TODecimal(registradores[util.TODecimal(rs)].getConteudo());
-		long rtB = util.TODecimal(registradores[util.TODecimal(rt)].getConteudo());
 
-		long r = rsB * rtB;
+		String rsB = util.twoComplment(registradores[util.TODecimal(rs)].getConteudo());
+		String rtB = util.twoComplment(registradores[util.TODecimal(rt)].getConteudo());
+
+		long a = Long.parseLong(rsB);
+		long b = Long.parseLong(rtB);
+
+		long r = a * b;
 
 		String rS = util.completacomZero64(Long.toBinaryString(r));
 
@@ -251,6 +255,7 @@ public class ControladorRegistradores {
 	}
 
 	public void multu(String rs, String rt) {
+
 		long rsB = util.TODecimal(registradores[util.TODecimal(rs)].getConteudo());
 		long rtB = util.TODecimal(registradores[util.TODecimal(rt)].getConteudo());
 
@@ -266,12 +271,16 @@ public class ControladorRegistradores {
 	}
 
 	public void div(String rs, String rt) {
-		int rsB = util.TODecimal(registradores[util.TODecimal(rs)].getConteudo());
-		int rtB = util.TODecimal(registradores[util.TODecimal(rt)].getConteudo());
 
-		if (rtB > 0) {
-			int r = rsB / rtB;
-			int resto = rsB % rtB;
+		String rsB = util.twoComplment(registradores[util.TODecimal(rs)].getConteudo());
+		String rtB = util.twoComplment(registradores[util.TODecimal(rt)].getConteudo());
+
+		int a = Integer.parseInt(rsB);
+		int b = Integer.parseInt(rtB);
+
+		if (b > 0) {
+			int r = a / b;
+			int resto = a % b;
 
 			String rS = util.completacomZero(Integer.toBinaryString(r));
 			String restoS = util.completacomZero(Integer.toBinaryString(resto));
@@ -380,22 +389,34 @@ public class ControladorRegistradores {
 	public void jal(String imm) {
 
 		int conteudoD = util.TODecimal(imm);
+		int endereco = ControladorMemoria.getIntance().getEnderecoAtual();
+
 		memoria.setEnderecoAtual(conteudoD);
-		// falta coisa aqui
+
+		endereco = endereco + 4;
+
+		String r = util.completacomZero(Integer.toBinaryString(endereco));
+
+		registradores[31].setConteudo(r);
 
 	}
 
 	public void lb(String rt, String imm, String rs) {
 
-		int conteudoIMM = util.TODecimal(imm);
+		String contIMM = util.twoComplment(imm);
 		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
 		int conteudoRS = util.TODecimal(conteudoRs);
+		int conteudoIMM = Integer.parseInt(contIMM);
 
 		int soma = conteudoIMM + conteudoRS;
 		String r = Integer.toString(soma);
 
 		verificaMD(r);
 		String data = getMemoriaDADO(r);
+		data = data.substring(7);
+		data = util.twoComplment(data);
+		int dado = Integer.parseInt(data);
+		data = Integer.toBinaryString(dado);
 
 		registradores[util.TODecimal(rt)].setConteudo(util.completacomZero(data));
 
@@ -403,9 +424,40 @@ public class ControladorRegistradores {
 
 	public void lbu(String rt, String imm, String rs) {
 
-		int conteudoIMM = util.TODecimal(imm);
+		String contIMM = util.twoComplment(imm);
 		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
 		int conteudoRS = util.TODecimal(conteudoRs);
+		int conteudoIMM = Integer.parseInt(contIMM);
+
+		int soma = conteudoIMM + conteudoRS;
+		String r = Integer.toString(soma);
+
+		verificaMD(r);
+		String data = getMemoriaDADO(r);
+		data = data.substring(7);
+
+		registradores[util.TODecimal(rt)].setConteudo(util.completacomZero(data));
+
+	}
+
+	public void lui(String rt, String imm) {
+
+		String contIMM = util.toDecimalString(imm);
+		String moreSGimm = contIMM.substring(17);
+		String zeros = "0000000000000000";
+
+		String r = moreSGimm.concat(zeros);
+
+		registradores[util.TODecimal(rt)].setConteudo(r);
+
+	}
+
+	public void lw(String rt, String imm, String rs) {
+
+		String contIMM = util.twoComplment(imm);
+		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
+		int conteudoRS = util.TODecimal(conteudoRs);
+		int conteudoIMM = Integer.parseInt(contIMM);
 
 		int soma = conteudoIMM + conteudoRS;
 		String r = Integer.toString(soma);
@@ -414,6 +466,44 @@ public class ControladorRegistradores {
 		String data = getMemoriaDADO(r);
 
 		registradores[util.TODecimal(rt)].setConteudo(util.completacomZero(data));
+
+	}
+
+	public void sb(String rt, String imm, String rs) {
+
+		String contIMM = util.twoComplment(imm);
+		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
+		int conteudoRS = util.TODecimal(conteudoRs);
+		int conteudoIMM = Integer.parseInt(contIMM);
+
+		int soma = conteudoIMM + conteudoRS;
+		String r = Integer.toString(soma);
+
+		verificaMD(r);
+		String data = getMemoriaDADO(r);
+		data = data.substring(7);
+		data = util.twoComplment(data);
+		int dado = Integer.parseInt(data);
+		data = Integer.toBinaryString(dado);
+
+		setMemoriaDADO(r, util.completacomZero(data));
+
+	}
+
+	public void sw(String rt, String imm, String rs) {
+
+		String contIMM = util.twoComplment(imm);
+		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
+		int conteudoRS = util.TODecimal(conteudoRs);
+		int conteudoIMM = Integer.parseInt(contIMM);
+
+		int soma = conteudoIMM + conteudoRS;
+		String r = Integer.toString(soma);
+
+		verificaMD(r);
+		String data = getMemoriaDADO(r);
+
+		setMemoriaDADO(r, util.completacomZero(data));
 
 	}
 
@@ -442,22 +532,6 @@ public class ControladorRegistradores {
 	}
 
 	public void syscall() {
-
-	}
-
-	public void lui() {
-
-	}
-
-	public void lw() {
-
-	}
-
-	public void sb() {
-
-	}
-
-	public void sw() {
 
 	}
 

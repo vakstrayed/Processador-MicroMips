@@ -36,7 +36,7 @@ public class Interpretador {
 			// MULTU NOR OR SLL SLLV SLT SRA SRAV SRL SRLV SUB SUBU
 			// SYSCALL XOR
 
-			fn = instrucao.substring(26, 32);
+			fn = instrucao.substring(26);
 			rs = instrucao.substring(6, 11);
 			rt = instrucao.substring(11, 16);
 			rd = instrucao.substring(16, 21);
@@ -47,6 +47,7 @@ public class Interpretador {
 			case "100000":
 				// ADD
 
+				System.out.println("\nInstrução ADD:");
 				System.out.println("Add " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rs) + ", $"
 						+ util.toDecimalString(rt));
 
@@ -300,9 +301,8 @@ public class Interpretador {
 
 			System.out.println("\nInstrução JAL:");
 			System.out.println("Jal " + "$" + util.toDecimalString(imm));
-			// Controler.jal(imm);
-			// Arquivo.getInstance().arquivoSaida("Jal " + "$" +
-			// util.toDecimalString(imm), Controler.toString());
+			Controler.jal(imm);
+			Arquivo.getInstance().arquivoSaida("Jal " + "$" + util.toDecimalString(imm), Controler.toString());
 
 			break;
 
@@ -446,6 +446,9 @@ public class Interpretador {
 
 			System.out.println("\nInstrução LUI:");
 			System.out.println("Lui " + "$" + util.toDecimalString(rt) + "," + util.toDecimalString(imm));
+			Controler.lui(rt, imm);
+			Arquivo.getInstance().arquivoSaida(
+					("Lui " + "$" + util.toDecimalString(rt) + "," + util.toDecimalString(imm)), Controler.toString());
 
 			break;
 
@@ -459,6 +462,9 @@ public class Interpretador {
 			System.out.println("\nInstrução LB:");
 			System.out.println("Lb " + "$" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
 					+ util.toDecimalString(rs) + ")");
+			Controler.lb(rt, imm, rs);
+			Arquivo.getInstance().arquivoSaida(("Lb " + "$" + util.toDecimalString(rt) + "," + util.toDecimalString(imm)
+					+ "($" + util.toDecimalString(rs) + ")"), Controler.toString());
 
 			break;
 
@@ -472,6 +478,10 @@ public class Interpretador {
 			System.out.println("\nInstrução LW:");
 			System.out.println("Lw  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
 					+ util.toDecimalString(rs) + ")");
+			Controler.lw(rt, imm, rs);
+			Arquivo.getInstance().arquivoSaida(("Lw  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm)
+					+ "($" + util.toDecimalString(rs) + ")"), Controler.toString());
+
 			break;
 
 		case "100100":
@@ -484,6 +494,9 @@ public class Interpretador {
 			System.out.println("\nInstrução LBU:");
 			System.out.println("lbu  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
 					+ util.toDecimalString(rs) + ")");
+			Controler.lbu(rt, imm, rs);
+			Arquivo.getInstance().arquivoSaida(("lbu  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm)
+					+ "($" + util.toDecimalString(rs) + ")"), Controler.toString());
 
 			break;
 
@@ -497,6 +510,12 @@ public class Interpretador {
 			System.out.println("\nInstrução SB:");
 			System.out.println("Sb  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
 					+ util.toDecimalString(rs) + ")");
+			Controler.sb(rt, imm, rs);
+			Arquivo.getInstance()
+					.arquivoToDaTaMemo(
+							("Sb  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
+									+ util.toDecimalString(rs) + ")"),
+							Controler.toStringMemoDado(), Controler.toString());
 
 			break;
 
@@ -510,6 +529,13 @@ public class Interpretador {
 			System.out.println("\nInstrução SW:");
 			System.out.println("Sw  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
 					+ util.toDecimalString(rs) + ")");
+			Controler.sw(rt, imm, rs);
+			Arquivo.getInstance()
+					.arquivoToDaTaMemo(
+							("Sw  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
+									+ util.toDecimalString(rs) + ")"),
+							Controler.toStringMemoDado(), Controler.toString());
+
 			break;
 
 		default:
