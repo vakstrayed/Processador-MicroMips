@@ -12,6 +12,12 @@ public class Util {
 		}
 		return parametro;
 	}
+	public String completacomUm(String parametro) {
+		while (parametro.length() < 32) {
+			parametro = "1" + parametro;
+		}
+		return parametro;
+	}
 
 	public String completacomZero64(String parametro) {
 		while (parametro.length() < 64) {

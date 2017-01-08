@@ -16,7 +16,7 @@ public class Interpretador {
 		
 		if (instrucao.length() == 10)
 			instrucao = util.toBin(instrucao.substring(2, instrucao.length()));
-		else if (instrucao.length() == 8)
+		else if (instrucao.length() <= 8)
 			instrucao = util.toBin(instrucao);
 
 		// ---------- separação do opCode ---------//
@@ -153,6 +153,7 @@ public class Interpretador {
 				System.out.println("\nInstrução SLL:");
 				System.out.println("Sll " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
 						+ util.toDecimalString(sh));
+				Controler.sll(rd,rt,sh);
 
 				break;
 
@@ -540,7 +541,8 @@ public class Interpretador {
 							Controler.toStringMemoDado(), Controler.toString());
 
 			break;
-
+			
+	
 		default:
 			System.out.println("Instrução não reconhecida");
 		}
