@@ -16,7 +16,7 @@ public class Interpretador {
 		
 		if (instrucao.length() == 10)
 			instrucao = util.toBin(instrucao.substring(2, instrucao.length()));
-		else if (instrucao.length() <= 8)
+		else if (instrucao.length() == 8)
 			instrucao = util.toBin(instrucao);
 
 		// ---------- separação do opCode ---------//
@@ -181,6 +181,9 @@ public class Interpretador {
 				System.out.println("\nInstrução SRA:");
 				System.out.println("Sra " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
 						+ util.toDecimalString(sh));
+				Controler.sra(rd, rt, sh);
+				Arquivo.getInstance().arquivoSaida(("Sra " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
+						+ util.toDecimalString(sh)), Controler.toString());
 
 				break;
 
@@ -189,6 +192,10 @@ public class Interpretador {
 				System.out.println("\nInstrução SRAV:");
 				System.out.println("Srav " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
 						+ util.toDecimalString(rs));
+				Controler.srav(rd, rt, rs);
+				Arquivo.getInstance().arquivoSaida(("Srav " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
+						+ util.toDecimalString(rs)), Controler.toString());
+				
 				break;
 
 			case "000010":
@@ -196,6 +203,9 @@ public class Interpretador {
 				System.out.println("\nInstrução SRL:");
 				System.out.println("Srl " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
 						+ util.toDecimalString(sh));
+				Controler.srl(rd, rt, sh);
+				Arquivo.getInstance().arquivoSaida(("Srl " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
+						+ util.toDecimalString(sh)), Controler.toString());
 
 				break;
 
@@ -204,6 +214,10 @@ public class Interpretador {
 				System.out.println("\nInstrução SRLV:");
 				System.out.println("Srlv " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
 						+ util.toDecimalString(rs));
+				Controler.srlv(rd, rt, rs);
+				Arquivo.getInstance().arquivoSaida(("Srlv " + "$" + util.toDecimalString(rd) + ", $" + util.toDecimalString(rt) + ", $"
+						+ util.toDecimalString(rs)), Controler.toString());
+				
 				break;
 
 			case "100010":

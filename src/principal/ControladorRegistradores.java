@@ -26,7 +26,8 @@ public class ControladorRegistradores {
 		}
 
 	}
-	public Registrador[] getRegistradores(){
+
+	public Registrador[] getRegistradores() {
 		return this.registradores;
 	}
 
@@ -354,6 +355,7 @@ public class ControladorRegistradores {
 		int conteudoD = Integer.parseInt(conteudoDD);
 		if (conteudoD < 0) {
 			int endereco = util.TODecimal(imm);
+			endereco = endereco * 4;
 			System.out.println(endereco);
 			memoria.setEnderecoAtual(endereco);
 		}
@@ -363,13 +365,14 @@ public class ControladorRegistradores {
 		String conteudo = registradores[util.TODecimal(rs)].getConteudo();
 		String conteudoDD = util.twoComplment(conteudo);
 		int conteudoRS = Integer.parseInt(conteudoDD);
-		
+
 		String conteudoA = registradores[util.TODecimal(rs)].getConteudo();
 		String conteudoAA = util.twoComplment(conteudoA);
 		int conteudoRT = Integer.parseInt(conteudoAA);
-		
+
 		if (conteudoRS == conteudoRT) {
 			int endereco = util.TODecimal(imm);
+			endereco = endereco * 4;
 			memoria.setEnderecoAtual(endereco);
 		}
 	}
@@ -378,13 +381,14 @@ public class ControladorRegistradores {
 		String conteudo = registradores[util.TODecimal(rs)].getConteudo();
 		String conteudoDD = util.twoComplment(conteudo);
 		int conteudoRS = Integer.parseInt(conteudoDD);
-		
+
 		String conteudoA = registradores[util.TODecimal(rs)].getConteudo();
 		String conteudoAA = util.twoComplment(conteudoA);
 		int conteudoRT = Integer.parseInt(conteudoAA);
 
 		if (conteudoRS != conteudoRT) {
 			int endereco = util.TODecimal(imm);
+			endereco = endereco * 4;
 			memoria.setEnderecoAtual(endereco);
 		}
 	}
@@ -448,8 +452,7 @@ public class ControladorRegistradores {
 	}
 
 	public void lui(String rt, String imm) {
-		
-		
+
 		String zeros = "0000000000000000";
 
 		String r = imm.concat(zeros);
@@ -515,73 +518,72 @@ public class ControladorRegistradores {
 
 	public void sll(String rd, String rt, String sh) {
 		int shiftAmount = Integer.valueOf(util.toDecimalString(sh));
-		
+
 		int conteudoRT = util.TODecimal(registradores[util.TODecimal(rt)].getConteudo());
-		
+
 		int resultado = conteudoRT << shiftAmount;
-		
+
 		registradores[util.TODecimal(rd)].setConteudo(util.completacomZero(Integer.toBinaryString(resultado)));
 	}
 
-	public void sllv(String rd, String rt ,String rs) {
+	public void sllv(String rd, String rt, String rs) {
 		int shiftAmount = util.TODecimal(registradores[util.TODecimal(rs)].getConteudo());
-		
+
 		int conteudoRT = util.TODecimal(registradores[util.TODecimal(rt)].getConteudo());
-		
+
 		int resultado = conteudoRT << shiftAmount;
-		
+
 		registradores[util.TODecimal(rd)].setConteudo(util.completacomZero(Integer.toBinaryString(resultado)));
 	}
 
 	public void sra(String rd, String rt, String sh) {
 		int shiftAmount = Integer.valueOf(util.toDecimalString(sh));
-					
-		int bitSinal = Integer.valueOf(registradores[util.TODecimal(rt)].getConteudo().substring(0,1));
-		
+
+		int bitSinal = Integer.valueOf(registradores[util.TODecimal(rt)].getConteudo().substring(0, 1));
+
 		int contador = 0;
-		String resultado = registradores[util.TODecimal(rt)].getConteudo(); 
-		
-		while(contador < shiftAmount){
+		String resultado = registradores[util.TODecimal(rt)].getConteudo();
+
+		while (contador < shiftAmount) {
 			resultado = resultado.substring(0, 31);
 			resultado = bitSinal + resultado;
 			contador++;
 		}
-		
+
 		registradores[util.TODecimal(rd)].setConteudo(resultado);
 	}
 
-	public void srav(String rd, String rt ,String rs) {
+	public void srav(String rd, String rt, String rs) {
 		int shiftAmount = util.TODecimal(registradores[util.TODecimal(rs)].getConteudo());
-		
-		int bitSinal = Integer.valueOf(registradores[util.TODecimal(rt)].getConteudo().substring(0,1));
-		
+
+		int bitSinal = Integer.valueOf(registradores[util.TODecimal(rt)].getConteudo().substring(0, 1));
+
 		int contador = 0;
-		String resultado = registradores[util.TODecimal(rt)].getConteudo(); 
-		
-		while(contador < shiftAmount){
+		String resultado = registradores[util.TODecimal(rt)].getConteudo();
+
+		while (contador < shiftAmount) {
 			resultado = resultado.substring(0, 31);
 			resultado = bitSinal + resultado;
 			contador++;
 		}
-		
+
 		registradores[util.TODecimal(rd)].setConteudo(resultado);
 	}
 
 	public void srl(String rd, String rt, String sh) {
 		int shiftAmount = Integer.valueOf(util.toDecimalString(sh));
 		System.out.println("SA " + shiftAmount);
-		
+
 		int conteudoRT = util.TODecimal(registradores[util.TODecimal(rt)].getConteudo());
 		System.out.println("Conteudo registrador T: " + util.completacomZero(Integer.toBinaryString(conteudoRT)));
-		
-		
+
 		int resultado = conteudoRT >>> shiftAmount;
 		System.out.println("resultado: " + util.completacomZero(Integer.toBinaryString(resultado)));
-		
+
 		registradores[util.TODecimal(rd)].setConteudo(util.completacomZero(Integer.toBinaryString(resultado)));
 	}
 
-	public void srlv(String rd, String rt ,String rs) {
+	public void srlv(String rd, String rt, String rs) {
 		int shiftAmount = util.TODecimal(registradores[util.TODecimal(rs)].getConteudo());
 		int conteudoRT = util.TODecimal(registradores[util.TODecimal(rt)].getConteudo());
 		int resultado = conteudoRT >>> shiftAmount;
