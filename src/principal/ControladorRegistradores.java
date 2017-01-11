@@ -27,6 +27,16 @@ public class ControladorRegistradores {
 
 	}
 
+	public int branchAddr(String v) {
+
+		String valor = util.twoComplment(v);
+		int k = Integer.parseInt(valor);
+
+		k = k * 4;
+
+		return k;
+	}
+
 	public Registrador[] getRegistradores() {
 		return this.registradores;
 	}
@@ -343,66 +353,76 @@ public class ControladorRegistradores {
 
 	}
 
-	public void jr(String rs) {
-		String conteudo = registradores[util.TODecimal(rs)].getConteudo();
-		int conteudoD = util.TODecimal(conteudo);
-		memoria.setEnderecoAtual(conteudoD);
-	}
-
 	public void bltz(String rs, String imm) {
 		String conteudo = registradores[util.TODecimal(rs)].getConteudo();
 		String conteudoDD = util.twoComplment(conteudo);
 		int conteudoD = Integer.parseInt(conteudoDD);
 		if (conteudoD < 0) {
-			int endereco = util.TODecimal(imm);
-			endereco = endereco * 4;
-			System.out.println(endereco);
-			memoria.setEnderecoAtual(endereco);
+			int end = memoria.getEnderecoAtual();
+			end = end + branchAddr(imm);
+			memoria.setEnderecoAtual(end);
 		}
 	}
 
 	public void beq(String rs, String rt, String imm) {
 		String conteudo = registradores[util.TODecimal(rs)].getConteudo();
-		String conteudoDD = util.twoComplment(conteudo);
-		int conteudoRS = Integer.parseInt(conteudoDD);
+		String conteudoA = registradores[util.TODecimal(rt)].getConteudo();
 
-		String conteudoA = registradores[util.TODecimal(rs)].getConteudo();
-		String conteudoAA = util.twoComplment(conteudoA);
-		int conteudoRT = Integer.parseInt(conteudoAA);
-
-		if (conteudoRS == conteudoRT) {
-			int endereco = util.TODecimal(imm);
-			endereco = endereco * 4;
-			memoria.setEnderecoAtual(endereco);
+		if (conteudo.equals(conteudoA)) {
+			int end = memoria.getEnderecoAtual();
+			end = end + branchAddr(imm);
+			memoria.setEnderecoAtual(end);
 		}
+
 	}
 
 	public void bne(String rs, String rt, String imm) {
 		String conteudo = registradores[util.TODecimal(rs)].getConteudo();
-		String conteudoDD = util.twoComplment(conteudo);
-		int conteudoRS = Integer.parseInt(conteudoDD);
 
-		String conteudoA = registradores[util.TODecimal(rs)].getConteudo();
-		String conteudoAA = util.twoComplment(conteudoA);
-		int conteudoRT = Integer.parseInt(conteudoAA);
+		String conteudoA = registradores[util.TODecimal(rt)].getConteudo();
 
-		if (conteudoRS != conteudoRT) {
-			int endereco = util.TODecimal(imm);
-			endereco = endereco * 4;
-			memoria.setEnderecoAtual(endereco);
+		if (!conteudo.equals(conteudoA)) {
+			int end = memoria.getEnderecoAtual();
+			end = end + branchAddr(imm);
+			memoria.setEnderecoAtual(end);
 		}
 	}
 
 	public void j(String imm) {
 
-		int conteudoD = util.TODecimal(imm);
+		String s = jumpAddr(imm);
+		int conteudoD = Integer.parseInt(util.twoComplment(s));
+		conteudoD = conteudoD - 4;
 		memoria.setEnderecoAtual(conteudoD);
+	}
+
+	public void jr(String rs) {
+		String conteudo = registradores[util.TODecimal(rs)].getConteudo();
+		int conteudoD = Integer.parseInt(util.twoComplment(conteudo));
+		conteudoD = conteudoD - 4;
+		memoria.setEnderecoAtual(conteudoD);
+	}
+
+	public String jumpAddr(String v) {
+
+		int nextEnd = memoria.getEnderecoAtual();
+
+		String nexEnd = util.completacomZero(Integer.toBinaryString(nextEnd));
+		String k = nexEnd.substring(0, 4);
+
+		String t = k.concat(v).concat("00");
+
+		return t;
 	}
 
 	public void jal(String imm) {
 
-		int conteudoD = util.TODecimal(imm);
 		int endereco = ControladorMemoria.getIntance().getEnderecoAtual();
+		endereco = endereco + 4;
+
+		String s = jumpAddr(imm);
+		int conteudoD = Integer.parseInt(util.twoComplment(s));
+		conteudoD = conteudoD - 4;
 
 		memoria.setEnderecoAtual(conteudoD);
 
@@ -416,7 +436,7 @@ public class ControladorRegistradores {
 
 		String contIMM = util.twoComplment(imm);
 		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
-		int conteudoRS = util.TODecimal(conteudoRs);
+		int conteudoRS = Integer.parseInt(util.twoComplment(conteudoRs));
 		int conteudoIMM = Integer.parseInt(contIMM);
 
 		int soma = conteudoIMM + conteudoRS;
@@ -424,20 +444,20 @@ public class ControladorRegistradores {
 
 		verificaMD(r);
 		String data = getMemoriaDADO(r);
-		data = data.substring(7);
-		data = util.twoComplment(data);
-		int dado = Integer.parseInt(data);
-		data = Integer.toBinaryString(dado);
+		data = data.substring(24);
+		String k = util.twoComplment(data);
 
-		registradores[util.TODecimal(rt)].setConteudo(util.completacomZero(data));
+		registradores[util.TODecimal(rt)].setConteudo(k);
 
 	}
 
 	public void lbu(String rt, String imm, String rs) {
 
+		String zeros = "000000000000000000000000";
+
 		String contIMM = util.twoComplment(imm);
 		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
-		int conteudoRS = util.TODecimal(conteudoRs);
+		int conteudoRS = Integer.parseInt(util.twoComplment(conteudoRs));
 		int conteudoIMM = Integer.parseInt(contIMM);
 
 		int soma = conteudoIMM + conteudoRS;
@@ -445,9 +465,10 @@ public class ControladorRegistradores {
 
 		verificaMD(r);
 		String data = getMemoriaDADO(r);
-		data = data.substring(7);
+		data = data.substring(24);
+		String k = zeros.concat(data);
 
-		registradores[util.TODecimal(rt)].setConteudo(util.completacomZero(data));
+		registradores[util.TODecimal(rt)].setConteudo(k);
 
 	}
 
@@ -465,7 +486,7 @@ public class ControladorRegistradores {
 
 		String contIMM = util.twoComplment(imm);
 		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
-		int conteudoRS = util.TODecimal(conteudoRs);
+		int conteudoRS = Integer.parseInt(util.twoComplment(conteudoRs));
 		int conteudoIMM = Integer.parseInt(contIMM);
 
 		int soma = conteudoIMM + conteudoRS;
@@ -474,7 +495,7 @@ public class ControladorRegistradores {
 		verificaMD(r);
 		String data = getMemoriaDADO(r);
 
-		registradores[util.TODecimal(rt)].setConteudo(util.completacomZero(data));
+		registradores[util.TODecimal(rt)].setConteudo(data);
 
 	}
 
@@ -482,18 +503,16 @@ public class ControladorRegistradores {
 
 		String contIMM = util.twoComplment(imm);
 		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
-		int conteudoRS = util.TODecimal(conteudoRs);
+		int conteudoRS = Integer.parseInt(util.twoComplment(conteudoRs));
 		int conteudoIMM = Integer.parseInt(contIMM);
 
 		int soma = conteudoIMM + conteudoRS;
 		String r = Integer.toString(soma);
 
 		verificaMD(r);
-		String data = getMemoriaDADO(r);
-		data = data.substring(7);
-		data = util.twoComplment(data);
-		int dado = Integer.parseInt(data);
-		data = Integer.toBinaryString(dado);
+		String data = registradores[util.TODecimal(rt)].getConteudo();
+
+		data = data.substring(24);
 
 		setMemoriaDADO(r, util.completacomZero(data));
 
@@ -503,16 +522,16 @@ public class ControladorRegistradores {
 
 		String contIMM = util.twoComplment(imm);
 		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
-		int conteudoRS = util.TODecimal(conteudoRs);
+		int conteudoRS = Integer.parseInt(util.twoComplment(conteudoRs));
 		int conteudoIMM = Integer.parseInt(contIMM);
 
 		int soma = conteudoIMM + conteudoRS;
 		String r = Integer.toString(soma);
 
 		verificaMD(r);
-		String data = getMemoriaDADO(r);
+		String data = registradores[util.TODecimal(rt)].getConteudo();
 
-		setMemoriaDADO(r, util.completacomZero(data));
+		setMemoriaDADO(r, data);
 
 	}
 
@@ -572,13 +591,10 @@ public class ControladorRegistradores {
 
 	public void srl(String rd, String rt, String sh) {
 		int shiftAmount = Integer.valueOf(util.toDecimalString(sh));
-		System.out.println("SA " + shiftAmount);
 
 		int conteudoRT = util.TODecimal(registradores[util.TODecimal(rt)].getConteudo());
-		System.out.println("Conteudo registrador T: " + util.completacomZero(Integer.toBinaryString(conteudoRT)));
 
 		int resultado = conteudoRT >>> shiftAmount;
-		System.out.println("resultado: " + util.completacomZero(Integer.toBinaryString(resultado)));
 
 		registradores[util.TODecimal(rd)].setConteudo(util.completacomZero(Integer.toBinaryString(resultado)));
 	}
@@ -588,10 +604,6 @@ public class ControladorRegistradores {
 		int conteudoRT = util.TODecimal(registradores[util.TODecimal(rt)].getConteudo());
 		int resultado = conteudoRT >>> shiftAmount;
 		registradores[util.TODecimal(rd)].setConteudo(util.completacomZero(Integer.toBinaryString(resultado)));
-	}
-
-	public void syscall() {
-
 	}
 
 	public void verificaMD(String id) {

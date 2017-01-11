@@ -51,9 +51,8 @@ public class ControladorMemoria {
 
 	public void executar() {
 		povoaMemoria();
-		while (enderecoAtual < enderecoFinal) {
+		while (enderecoAtual <= enderecoFinal) {
 			Interpretador.translateAssembly(memoriaInstrucoes.get(enderecoAtual));
-			System.out.println(memoriaInstrucoes.get(enderecoAtual));
 			enderecoAtual = enderecoAtual + 4;
 		}
 	}
