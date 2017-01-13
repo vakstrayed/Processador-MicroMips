@@ -106,15 +106,32 @@ public class MemoriaDados {
 		String getdado = this.memoria.get(chave).getConteudo();
 		String dataBIN = Integer.toBinaryString(Integer.parseInt(getdado));
 		dataBIN = util.completacomZero(dataBIN);
-		
+
+		String corteDADO = dado.substring(24);
+
+		String corteDBINa = dataBIN.substring(0, 8);
+		String corteDBINb = dataBIN.substring(8, 16);
+		String corteDBINc = dataBIN.substring(16, 24);
+		String corteDBINd = dataBIN.substring(24);
+
+		String dataINSERT;
+
 		switch (casa) {
 		case 0:
+			dataINSERT = corteDBINa.concat(corteDBINb).concat(corteDBINc).concat(corteDADO);
+			this.memoria.get(chave).setConteudo(util.twoComplment(dataINSERT));
 			break;
 		case 1:
+			dataINSERT = corteDBINa.concat(corteDBINb).concat(corteDADO).concat(corteDBINd);
+			this.memoria.get(chave).setConteudo(util.twoComplment(dataINSERT));
 			break;
 		case 2:
+			dataINSERT = corteDBINa.concat(corteDADO).concat(corteDBINc).concat(corteDBINd);
+			this.memoria.get(chave).setConteudo(util.twoComplment(dataINSERT));
 			break;
 		case 3:
+			dataINSERT = corteDADO.concat(corteDBINb).concat(corteDBINc).concat(corteDBINd);
+			this.memoria.get(chave).setConteudo(util.twoComplment(dataINSERT));
 			break;
 		}
 
