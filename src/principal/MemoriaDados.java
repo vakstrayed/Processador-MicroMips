@@ -49,25 +49,45 @@ public class MemoriaDados {
 		int casa = posicao * 4;
 		// casa vai dizer quem que byte deve ser inserido
 		casa = end - casa;
-
-		String dado = Integer.toBinaryString(valor);
-
+		
 		int chave = verificaENDERECO(Integer.toString(TOposicao));
+		
+		String dado = Integer.toBinaryString(valor);
+		
+		String getdado = this.memoria.get(chave).getConteudo();
+		String dataBIN = Integer.toBinaryString(Integer.parseInt(getdado));
+		dataBIN = util.completacomZero(dataBIN);
+		
+		String db,dg,dataINSERT;
 
 		switch (casa) {
 		case 0:
-			dado = util.completacomZero(dado);
-			this.memoria.get(chave).setConteudo(dado);
+			this.memoria.get(chave).setConteudo(Integer.toString(valor));
 			break;
 		case 1:
-
+			db = dataBIN.substring(24);
+			dg = dado.substring(8);
+			dataINSERT = dg.concat(db);
+			this.memoria.get(chave).setConteudo(util.twoComplment(dataINSERT));
 			break;
 		case 2:
+			db = dataBIN.substring(16);
+			dg = dado.substring(16);
+			dataINSERT = dg.concat(db);
+			this.memoria.get(chave).setConteudo(util.twoComplment(dataINSERT));
 			break;
 		case 3:
+			db = dataBIN.substring(8);
+			dg = dado.substring(24);
+			dataINSERT = dg.concat(db);
+			this.memoria.get(chave).setConteudo(util.twoComplment(dataINSERT));
 			break;
 		}
 
+	}
+	
+	public void InserirSB(){
+		
 	}
 
 }
