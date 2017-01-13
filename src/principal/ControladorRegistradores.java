@@ -519,7 +519,9 @@ public class ControladorRegistradores {
 	}
 
 	public void sw(String rt, String imm, String rs) {
-
+		
+		
+		
 		String contIMM = util.twoComplment(imm);
 		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
 		int conteudoRS = Integer.parseInt(util.twoComplment(conteudoRs));
