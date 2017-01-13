@@ -53,6 +53,7 @@ public class MemoriaDados {
 		int chave = verificaENDERECO(Integer.toString(TOposicao));
 
 		String dado = Integer.toBinaryString(valor);
+		dado = util.completacomZero(dado);
 
 		String getdado = this.memoria.get(chave).getConteudo();
 		String dataBIN = Integer.toBinaryString(Integer.parseInt(getdado));
@@ -100,6 +101,7 @@ public class MemoriaDados {
 		int chave = verificaENDERECO(Integer.toString(TOposicao));
 
 		String dado = Integer.toBinaryString(valor);
+		dado = util.completacomZero(dado);
 
 		String getdado = this.memoria.get(chave).getConteudo();
 		String dataBIN = Integer.toBinaryString(Integer.parseInt(getdado));
