@@ -8,7 +8,7 @@ public class MemoriaDados {
 	private static MemoriaDados instance;
 	private List<Registrador> memoria;
 	private static int posicINICIO = 8192;
-	private Util util;
+	private Util util = new Util();
 
 	private MemoriaDados() {
 		this.memoria = new ArrayList<Registrador>();
