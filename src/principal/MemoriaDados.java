@@ -20,6 +20,10 @@ public class MemoriaDados {
 		}
 		return instance;
 	}
+	
+	public int getPosicINICIO(){
+		return MemoriaDados.posicINICIO;
+	}
 
 	public int verificaENDERECO(String end) {
 		int key = 0;
@@ -134,6 +138,25 @@ public class MemoriaDados {
 			this.memoria.get(chave).setConteudo(util.twoComplment(dataINSERT));
 			break;
 		}
+
+	}
+
+	public String LerMemoria(String endereco) {
+		
+		int end = Integer.parseInt(endereco);
+		end = end - posicINICIO;
+		int posicao = end / 4;
+		// TOposicao diz em que endereço ele deve ser inserido
+		int TOposicao = posicINICIO + posicao;
+		int casa = posicao * 4;
+		// casa vai dizer quem que byte deve ser inserido
+		casa = end - casa;
+
+		int chave = verificaENDERECO(Integer.toString(TOposicao));
+		String t = this.memoria.get(chave).getConteudo();
+		t = Integer.toBinaryString(Integer.parseInt(t));
+		t = util.completacomZero(t);
+		return t;
 
 	}
 

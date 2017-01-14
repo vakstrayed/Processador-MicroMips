@@ -11,6 +11,7 @@ public class ControladorRegistradores {
 	private Registrador hi = new Registrador("hi", "00000000000000000000000000000000");
 	private Registrador lo = new Registrador("lo", "00000000000000000000000000000000");
 	private List<Registrador> MemoriaDado = new ArrayList<Registrador>();
+	private int TObyte;
 
 	private Util util = new Util();
 	private ControladorMemoria memoria;
@@ -25,6 +26,15 @@ public class ControladorRegistradores {
 			registradores[i] = new Registrador("$" + i, "00000000000000000000000000000000");
 		}
 
+	}
+
+	public void verificaENDERECO(String endereco) {
+		int end = Integer.parseInt(endereco);
+		end = end - MemoriaDados.getInstance().getPosicINICIO();
+		int posicao = end / 4;
+		int casa = posicao * 4;
+		// casa vai dizer quem que byte deve ser inserido
+		this.TObyte = end - casa;
 	}
 
 	public int branchAddr(String v) {
@@ -438,16 +448,42 @@ public class ControladorRegistradores {
 		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
 		int conteudoRS = Integer.parseInt(util.twoComplment(conteudoRs));
 		int conteudoIMM = Integer.parseInt(contIMM);
+		String dataBIN = registradores[util.TODecimal(rt)].getConteudo();
+
 
 		int soma = conteudoIMM + conteudoRS;
 		String r = Integer.toString(soma);
+		
+		verificaENDERECO(r);
+		String data = MemoriaDados.getInstance().LerMemoria(r);
+		
+		String corteDADO = data.substring(24);
 
-		verificaMD(r);
-		String data = getMemoriaDADO(r);
-		data = data.substring(24);
-		String k = util.twoComplment(data);
+		String corteDBINa = dataBIN.substring(0, 8);
+		String corteDBINb = dataBIN.substring(8, 16);
+		String corteDBINc = dataBIN.substring(16, 24);
+		String corteDBINd = dataBIN.substring(24);
 
-		registradores[util.TODecimal(rt)].setConteudo(k);
+		String dataINSERT;
+
+		switch (this.TObyte) {
+		case 0:
+			dataINSERT = corteDBINa.concat(corteDBINb).concat(corteDBINc).concat(corteDADO);
+			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			break;
+		case 1:
+			dataINSERT = corteDBINa.concat(corteDBINb).concat(corteDADO).concat(corteDBINd);
+			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			break;
+		case 2:
+			dataINSERT = corteDBINa.concat(corteDADO).concat(corteDBINc).concat(corteDBINd);
+			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			break;
+		case 3:
+			dataINSERT = corteDADO.concat(corteDBINb).concat(corteDBINc).concat(corteDBINd);
+			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			break;
+		}
 
 	}
 
@@ -484,6 +520,8 @@ public class ControladorRegistradores {
 
 	public void lw(String rt, String imm, String rs) {
 
+		String conteudoRt = registradores[util.TODecimal(rt)].getConteudo();
+
 		String contIMM = util.twoComplment(imm);
 		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
 		int conteudoRS = Integer.parseInt(util.twoComplment(conteudoRs));
@@ -492,10 +530,34 @@ public class ControladorRegistradores {
 		int soma = conteudoIMM + conteudoRS;
 		String r = Integer.toString(soma);
 
-		verificaMD(r);
-		String data = getMemoriaDADO(r);
+		verificaENDERECO(r);
+		String dadoLIDO = MemoriaDados.getInstance().LerMemoria(r);
 
-		registradores[util.TODecimal(rt)].setConteudo(data);
+		String db, dg, dataINSERT;
+
+		switch (this.TObyte) {
+		case 0:
+			registradores[util.TODecimal(rt)].setConteudo(dadoLIDO);
+			break;
+		case 1:
+			db = conteudoRt.substring(24);
+			dg = dadoLIDO.substring(8);
+			dataINSERT = dg.concat(db);
+			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			break;
+		case 2:
+			db = conteudoRt.substring(16);
+			dg = dadoLIDO.substring(16);
+			dataINSERT = dg.concat(db);
+			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			break;
+		case 3:
+			db = conteudoRt.substring(8);
+			dg = dadoLIDO.substring(24);
+			dataINSERT = dg.concat(db);
+			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			break;
+		}
 
 	}
 
@@ -509,19 +571,15 @@ public class ControladorRegistradores {
 		int soma = conteudoIMM + conteudoRS;
 		String r = Integer.toString(soma);
 
-		verificaMD(r);
 		String data = registradores[util.TODecimal(rt)].getConteudo();
+		int valor = Integer.parseInt(util.twoComplment(data));
 
-		data = data.substring(24);
-
-		setMemoriaDADO(r, util.completacomZero(data));
+		MemoriaDados.getInstance().InserirSB(r, valor);
 
 	}
 
 	public void sw(String rt, String imm, String rs) {
-		
-		
-		
+
 		String contIMM = util.twoComplment(imm);
 		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
 		int conteudoRS = Integer.parseInt(util.twoComplment(conteudoRs));
@@ -530,10 +588,10 @@ public class ControladorRegistradores {
 		int soma = conteudoIMM + conteudoRS;
 		String r = Integer.toString(soma);
 
-		verificaMD(r);
 		String data = registradores[util.TODecimal(rt)].getConteudo();
+		int valor = Integer.parseInt(util.twoComplment(data));
 
-		setMemoriaDADO(r, data);
+		MemoriaDados.getInstance().InserirSW(r, valor);
 
 	}
 
