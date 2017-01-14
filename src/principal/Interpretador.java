@@ -513,10 +513,10 @@ public class Interpretador {
 			imm = instrucao.substring(16);
 
 			System.out.println("\nInstrução LBU:");
-			System.out.println("lbu  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
+			System.out.println("Lbu  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
 					+ util.toDecimalString(rs) + ")");
 			Controler.lbu(rt, imm, rs);
-			Arquivo.getInstance().arquivoSaida(("lbu  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm)
+			Arquivo.getInstance().arquivoSaida(("Lbu  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm)
 					+ "($" + util.toDecimalString(rs) + ")"), Controler.toString());
 
 			break;

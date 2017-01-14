@@ -70,6 +70,7 @@ public class MemoriaDados {
 		switch (casa) {
 		case 0:
 			this.memoria.get(chave).setConteudo(Integer.toString(valor));
+			System.out.println(Integer.toString(valor));
 			break;
 		case 1:
 			db = dataBIN.substring(24);
@@ -169,7 +170,7 @@ public class MemoriaDados {
 
 		for (int i = 0; i < memoria.size(); i++) {
 
-			conteudo = util.twoComplment(memoria.get(i).getConteudo());
+			conteudo = (memoria.get(i).getConteudo());
 
 			DataMemo.add(new Registrador(memoria.get(i).getNome(), conteudo));
 

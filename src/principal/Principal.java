@@ -11,9 +11,16 @@ public class Principal {
 
 		
 		teclado = new Scanner(System.in);
+		
+		System.out.println("==================================================================");
+		System.out.println("= Digite 1 para executar modo processador:                       =");
+		System.out.println("= Digite 2 para executar modo tradutor:                          =");
+		System.out.println("=                                                                =");
+		System.out.println("=                                                                =");
+		System.out.println("= O valor inicial da memoria de dados é 8192 e pode ser alterado =");
+		System.out.println("= através da variável posicINICIO dentro da classe MemoriaDados  =");
+		System.out.println("==================================================================");
 
-		System.out.println("Digite 1 para executar modo processador: ");
-		System.out.println("Digite 2 para executar modo tradutor: ");
 
 		int k = teclado.nextInt();
 

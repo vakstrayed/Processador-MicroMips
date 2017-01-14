@@ -566,29 +566,31 @@ public class ControladorRegistradores {
 
 		verificaENDERECO(r);
 		String dadoLIDO = MemoriaDados.getInstance().LerMemoria(r);
-
-		String db, dg, dataINSERT;
+		
+		String corte1 = dadoLIDO.substring(0, 24);
+		String corte2 = dadoLIDO.substring(0, 16);
+		String corte3 = dadoLIDO.substring(0, 8);
+		
+		int valorC1 = Integer.parseInt(util.twoComplment(corte1));
+		int valorC2 = Integer.parseInt(util.twoComplment(corte2));
+		int valorC3 = Integer.parseInt(util.twoComplment(corte3));
+		
+		String dataINSERT;
 
 		switch (this.TObyte) {
 		case 0:
 			registradores[util.TODecimal(rt)].setConteudo(dadoLIDO);
 			break;
 		case 1:
-			db = conteudoRt.substring(24);
-			dg = dadoLIDO.substring(8);
-			dataINSERT = dg.concat(db);
+			dataINSERT = util.completacomZero(Integer.toBinaryString(valorC1));
 			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
 			break;
 		case 2:
-			db = conteudoRt.substring(16);
-			dg = dadoLIDO.substring(16);
-			dataINSERT = dg.concat(db);
+			dataINSERT = util.completacomZero(Integer.toBinaryString(valorC2));
 			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
 			break;
 		case 3:
-			db = conteudoRt.substring(8);
-			dg = dadoLIDO.substring(24);
-			dataINSERT = dg.concat(db);
+			dataINSERT = util.completacomZero(Integer.toBinaryString(valorC3));
 			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
 			break;
 		}
