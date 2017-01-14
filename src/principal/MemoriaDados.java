@@ -57,8 +57,8 @@ public class MemoriaDados {
 		int chave = verificaENDERECO(Integer.toString(TOposicao));
 
 		String dado = Integer.toBinaryString(valor);
+		System.out.println("o valor passado em bin:"+dado);
 		dado = util.completacomZero(dado);
-		System.out.println(dado);
 
 
 		String getdado = this.memoria.get(chave).getConteudo();
