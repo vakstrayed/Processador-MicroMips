@@ -5,10 +5,12 @@ import java.util.Scanner;
 
 public class Principal {
 
+	private static Scanner teclado;
+
 	public static void main(String args[]) {
 
 		
-		Scanner teclado = new Scanner(System.in);
+		teclado = new Scanner(System.in);
 
 		System.out.println("Digite 1 para executar modo processador: ");
 		System.out.println("Digite 2 para executar modo tradutor: ");

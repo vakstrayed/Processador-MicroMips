@@ -58,6 +58,8 @@ public class MemoriaDados {
 
 		String dado = Integer.toBinaryString(valor);
 		dado = util.completacomZero(dado);
+		System.out.println(dado);
+
 
 		String getdado = this.memoria.get(chave).getConteudo();
 		String dataBIN = Integer.toBinaryString(Integer.parseInt(getdado));

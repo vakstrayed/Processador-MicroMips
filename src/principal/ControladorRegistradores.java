@@ -1,8 +1,6 @@
 package principal;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class ControladorRegistradores {
 
@@ -10,7 +8,6 @@ public class ControladorRegistradores {
 	private Registrador[] Aux = new Registrador[32];
 	private Registrador hi = new Registrador("hi", "00000000000000000000000000000000");
 	private Registrador lo = new Registrador("lo", "00000000000000000000000000000000");
-	private List<Registrador> MemoriaDado = new ArrayList<Registrador>();
 	private int TObyte;
 
 	private Util util = new Util();
@@ -448,39 +445,47 @@ public class ControladorRegistradores {
 		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
 		int conteudoRS = Integer.parseInt(util.twoComplment(conteudoRs));
 		int conteudoIMM = Integer.parseInt(contIMM);
-		String dataBIN = registradores[util.TODecimal(rt)].getConteudo();
-
+		
 		int soma = conteudoIMM + conteudoRS;
 		String r = Integer.toString(soma);
 
 		verificaENDERECO(r);
 		String data = MemoriaDados.getInstance().LerMemoria(r);
 
-		String corteDADO = data.substring(24);
+		String corteDBINa = data.substring(0, 8);
+		String corteDBINb = data.substring(8, 16);
+		String corteDBINc = data.substring(16, 24);
+		String corteDBINd = data.substring(24);
 
-		String corteDBINa = dataBIN.substring(0, 8);
-		String corteDBINb = dataBIN.substring(8, 16);
-		String corteDBINc = dataBIN.substring(16, 24);
-		String corteDBINd = dataBIN.substring(24);
+		int valorCorte;
+		String BINvalor;
 
 		String dataINSERT;
 
 		switch (this.TObyte) {
 		case 0:
-			dataINSERT = corteDBINa.concat(corteDBINb).concat(corteDBINc).concat(corteDADO);
-			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			valorCorte = Integer.parseInt(util.twoComplment(corteDBINd));
+			BINvalor = Integer.toBinaryString(valorCorte);
+			BINvalor = util.completacomZero(BINvalor);
+			registradores[util.TODecimal(rt)].setConteudo(BINvalor);
 			break;
 		case 1:
-			dataINSERT = corteDBINa.concat(corteDBINb).concat(corteDADO).concat(corteDBINd);
-			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			valorCorte = Integer.parseInt(util.twoComplment(corteDBINc));
+			BINvalor = Integer.toBinaryString(valorCorte);
+			BINvalor = util.completacomZero(BINvalor);
+			registradores[util.TODecimal(rt)].setConteudo(BINvalor);
 			break;
 		case 2:
-			dataINSERT = corteDBINa.concat(corteDADO).concat(corteDBINc).concat(corteDBINd);
-			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			valorCorte = Integer.parseInt(util.twoComplment(corteDBINb));
+			BINvalor = Integer.toBinaryString(valorCorte);
+			BINvalor = util.completacomZero(BINvalor);
+			registradores[util.TODecimal(rt)].setConteudo(BINvalor);
 			break;
 		case 3:
-			dataINSERT = corteDADO.concat(corteDBINb).concat(corteDBINc).concat(corteDBINd);
-			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			valorCorte = Integer.parseInt(util.twoComplment(corteDBINa));
+			BINvalor = Integer.toBinaryString(valorCorte);
+			BINvalor = util.completacomZero(BINvalor);
+			registradores[util.TODecimal(rt)].setConteudo(BINvalor);
 			break;
 		}
 
@@ -492,39 +497,47 @@ public class ControladorRegistradores {
 		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
 		int conteudoRS = Integer.parseInt(util.twoComplment(conteudoRs));
 		int conteudoIMM = Integer.parseInt(contIMM);
-		String dataBIN = registradores[util.TODecimal(rt)].getConteudo();
-
+		
 		int soma = conteudoIMM + conteudoRS;
 		String r = Integer.toString(soma);
 
 		verificaENDERECO(r);
 		String data = MemoriaDados.getInstance().LerMemoria(r);
 
-		String corteDADO = data.substring(24);
+		String corteDBINa = data.substring(0, 8);
+		String corteDBINb = data.substring(8, 16);
+		String corteDBINc = data.substring(16, 24);
+		String corteDBINd = data.substring(24);
 
-		String corteDBINa = dataBIN.substring(0, 8);
-		String corteDBINb = dataBIN.substring(8, 16);
-		String corteDBINc = dataBIN.substring(16, 24);
-		String corteDBINd = dataBIN.substring(24);
+		int valorCorte;
+		String BINvalor;
 
 		String dataINSERT;
 
 		switch (this.TObyte) {
 		case 0:
-			dataINSERT = corteDBINa.concat(corteDBINb).concat(corteDBINc).concat(corteDADO);
-			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			valorCorte = util.TODecimal(corteDBINd);
+			BINvalor = Integer.toBinaryString(valorCorte);
+			BINvalor = util.completacomZero(BINvalor);
+			registradores[util.TODecimal(rt)].setConteudo(BINvalor);
 			break;
 		case 1:
-			dataINSERT = corteDBINa.concat(corteDBINb).concat(corteDADO).concat(corteDBINd);
-			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			valorCorte = util.TODecimal(corteDBINc);
+			BINvalor = Integer.toBinaryString(valorCorte);
+			BINvalor = util.completacomZero(BINvalor);
+			registradores[util.TODecimal(rt)].setConteudo(BINvalor);
 			break;
 		case 2:
-			dataINSERT = corteDBINa.concat(corteDADO).concat(corteDBINc).concat(corteDBINd);
-			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			valorCorte = util.TODecimal(corteDBINb);
+			BINvalor = Integer.toBinaryString(valorCorte);
+			BINvalor = util.completacomZero(BINvalor);
+			registradores[util.TODecimal(rt)].setConteudo(BINvalor);
 			break;
 		case 3:
-			dataINSERT = corteDADO.concat(corteDBINb).concat(corteDBINc).concat(corteDBINd);
-			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			valorCorte = util.TODecimal(corteDBINa);
+			BINvalor = Integer.toBinaryString(valorCorte);
+			BINvalor = util.completacomZero(BINvalor);
+			registradores[util.TODecimal(rt)].setConteudo(BINvalor);
 			break;
 		}
 	}
@@ -611,7 +624,7 @@ public class ControladorRegistradores {
 
 		String data = registradores[util.TODecimal(rt)].getConteudo();
 		int valor = Integer.parseInt(util.twoComplment(data));
-
+		
 		MemoriaDados.getInstance().InserirSW(r, valor);
 
 	}
