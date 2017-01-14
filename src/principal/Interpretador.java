@@ -536,7 +536,7 @@ public class Interpretador {
 					.arquivoToDaTaMemo(
 							("Sb  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
 									+ util.toDecimalString(rs) + ")"),
-							Controler.toStringMemoDado(), Controler.toString());
+							MemoriaDados.getInstance().toStringMemoDado(), Controler.toString());
 
 			break;
 
@@ -555,7 +555,7 @@ public class Interpretador {
 					.arquivoToDaTaMemo(
 							("Sw  $" + util.toDecimalString(rt) + "," + util.toDecimalString(imm) + "($"
 									+ util.toDecimalString(rs) + ")"),
-							Controler.toStringMemoDado(), Controler.toString());
+							MemoriaDados.getInstance().toStringMemoDado(), Controler.toString());
 
 			break;
 

@@ -159,5 +159,21 @@ public class MemoriaDados {
 		return t;
 
 	}
+	
+	public String toStringMemoDado() {
+
+		String conteudo;
+		List<Registrador> DataMemo = new ArrayList<Registrador>();
+
+		for (int i = 0; i < memoria.size(); i++) {
+
+			conteudo = util.twoComplment(memoria.get(i).getConteudo());
+
+			DataMemo.add(new Registrador(memoria.get(i).getNome(), conteudo));
+
+		}
+
+		return DataMemo.toString();
+	}
 
 }

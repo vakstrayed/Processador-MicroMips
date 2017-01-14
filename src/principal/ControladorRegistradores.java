@@ -450,13 +450,12 @@ public class ControladorRegistradores {
 		int conteudoIMM = Integer.parseInt(contIMM);
 		String dataBIN = registradores[util.TODecimal(rt)].getConteudo();
 
-
 		int soma = conteudoIMM + conteudoRS;
 		String r = Integer.toString(soma);
-		
+
 		verificaENDERECO(r);
 		String data = MemoriaDados.getInstance().LerMemoria(r);
-		
+
 		String corteDADO = data.substring(24);
 
 		String corteDBINa = dataBIN.substring(0, 8);
@@ -489,23 +488,45 @@ public class ControladorRegistradores {
 
 	public void lbu(String rt, String imm, String rs) {
 
-		String zeros = "000000000000000000000000";
-
 		String contIMM = util.twoComplment(imm);
 		String conteudoRs = registradores[util.TODecimal(rs)].getConteudo();
 		int conteudoRS = Integer.parseInt(util.twoComplment(conteudoRs));
 		int conteudoIMM = Integer.parseInt(contIMM);
+		String dataBIN = registradores[util.TODecimal(rt)].getConteudo();
 
 		int soma = conteudoIMM + conteudoRS;
 		String r = Integer.toString(soma);
 
-		verificaMD(r);
-		String data = getMemoriaDADO(r);
-		data = data.substring(24);
-		String k = zeros.concat(data);
+		verificaENDERECO(r);
+		String data = MemoriaDados.getInstance().LerMemoria(r);
 
-		registradores[util.TODecimal(rt)].setConteudo(k);
+		String corteDADO = data.substring(24);
 
+		String corteDBINa = dataBIN.substring(0, 8);
+		String corteDBINb = dataBIN.substring(8, 16);
+		String corteDBINc = dataBIN.substring(16, 24);
+		String corteDBINd = dataBIN.substring(24);
+
+		String dataINSERT;
+
+		switch (this.TObyte) {
+		case 0:
+			dataINSERT = corteDBINa.concat(corteDBINb).concat(corteDBINc).concat(corteDADO);
+			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			break;
+		case 1:
+			dataINSERT = corteDBINa.concat(corteDBINb).concat(corteDADO).concat(corteDBINd);
+			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			break;
+		case 2:
+			dataINSERT = corteDBINa.concat(corteDADO).concat(corteDBINc).concat(corteDBINd);
+			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			break;
+		case 3:
+			dataINSERT = corteDADO.concat(corteDBINb).concat(corteDBINc).concat(corteDBINd);
+			registradores[util.TODecimal(rt)].setConteudo(dataINSERT);
+			break;
+		}
 	}
 
 	public void lui(String rt, String imm) {
@@ -666,45 +687,6 @@ public class ControladorRegistradores {
 		registradores[util.TODecimal(rd)].setConteudo(util.completacomZero(Integer.toBinaryString(resultado)));
 	}
 
-	public void verificaMD(String id) {
-
-		int key = 0;
-
-		for (int i = 0; i < MemoriaDado.size(); i++) {
-			if (MemoriaDado.get(i).getNome().equals(id)) {
-				key = 1;
-			}
-		}
-		if (key == 0) {
-			Registrador v = new Registrador(id, "00000000000000000000000000000000");
-			MemoriaDado.add(v);
-		}
-
-	}
-
-	public String getMemoriaDADO(String id) {
-
-		String dado = null;
-
-		for (int i = 0; i < MemoriaDado.size(); i++) {
-			if (MemoriaDado.get(i).getNome().equals(id)) {
-				dado = MemoriaDado.get(i).getConteudo();
-			}
-		}
-		return dado;
-	}
-
-	public void setMemoriaDADO(String id, String dado) {
-
-		verificaMD(id);
-		for (int i = 0; i < MemoriaDado.size(); i++) {
-			if (MemoriaDado.get(i).getNome().equals(id)) {
-				MemoriaDado.get(i).setConteudo(dado);
-			}
-		}
-
-	}
-
 	public String toString() {
 		String conteudo;
 
@@ -730,22 +712,6 @@ public class ControladorRegistradores {
 		Registrador Lo1 = new Registrador("lo", conteudoLO);
 
 		return (Hi1.toString() + ";" + "\r\n" + Lo1.toString() + ";");
-	}
-
-	public String toStringMemoDado() {
-
-		String conteudo;
-		List<Registrador> DataMemo = new ArrayList<Registrador>();
-
-		for (int i = 0; i < MemoriaDado.size(); i++) {
-
-			conteudo = util.twoComplment(MemoriaDado.get(i).getConteudo());
-
-			DataMemo.add(new Registrador(MemoriaDado.get(i).getNome(), conteudo));
-
-		}
-
-		return DataMemo.toString();
 	}
 
 }
