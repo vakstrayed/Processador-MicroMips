@@ -84,10 +84,15 @@ public class ControladorRegistradores {
 	public void addu(String rd, String rs, String rt) {
 
 		String conteudoRegs = registradores[util.TODecimal(rs)].getConteudo();
-		int conteudoComplementoS = Integer.parseInt(conteudoRegs);
+		System.out.println("Rs:"+Integer.parseInt(conteudoRegs));
+		int conteudoComplementoS = util.TODecimal(conteudoRegs);
 
+		
 		String conteudoRegT = registradores[util.TODecimal(rt)].getConteudo();
-		int conteudoComplementoT = Integer.parseInt(conteudoRegT);
+		System.out.println("RT:"+(conteudoRegT));
+		int conteudoComplementoT = util.TODecimal(conteudoRegT);		
+		
+		System.out.println((conteudoComplementoS + conteudoComplementoT));
 
 		registradores[util.TODecimal(rd)]
 				.setConteudo(util.completacomZero(Integer.toBinaryString(conteudoComplementoS + conteudoComplementoT)));
@@ -224,8 +229,11 @@ public class ControladorRegistradores {
 	}
 
 	public void or(String rd, String rs, String rt) {
-		int rtB = util.TODecimal(registradores[util.TODecimal(rt)].getConteudo());
-		int rsB = util.TODecimal(registradores[util.TODecimal(rs)].getConteudo());
+		
+		System.out.println(util.twoComplment(registradores[util.TODecimal(rt)].getConteudo()));
+		
+		int rtB = Integer.parseInt(util.twoComplment(registradores[util.TODecimal(rt)].getConteudo()));
+		int rsB = Integer.parseInt(util.twoComplment(registradores[util.TODecimal(rs)].getConteudo()));
 
 		String r = Integer.toBinaryString(rtB | rsB);
 
@@ -547,7 +555,7 @@ public class ControladorRegistradores {
 		String zeros = "0000000000000000";
 
 		String r = imm.concat(zeros);
-
+		System.out.println(r);
 		registradores[util.TODecimal(rt)].setConteudo(r);
 
 	}
