@@ -23,6 +23,7 @@ traduz as instruções, desconsiderando instruções do tipo j, pois este modo
 não utiliza a memória de instruções, apenas a memória de dados também quando
 solicitado. 
 
+Não foi implementada a correção de erro, ex: overflow
 
 # contém:
 
